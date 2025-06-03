@@ -1,0 +1,24 @@
+INFO: Parsed KRB OK - Elements=2, Styles=0, Strings=4, Flags=0x0044
+INFO: Processing Element 0: type=0x00, style_id=0, layout=0x04
+INFO: Reading App Direct Props
+INFO: App Element (Final): BG=0x00000000, FG=0x00000000. Design=(300,250), Resizable=0, KeepAspect=0
+INFO: Applying 4 direct properties for Element 0
+DEBUG: After Direct Props 0: BG=0x00000000, FG=0x00000000, Border=0x00000000, BW=0, Text='NULL'
+INFO: Processing Element 1: type=0x03, style_id=0, layout=0x00
+INFO: Applying 1 direct properties for Element 1
+DEBUG: After Direct Props 1: BG=0x00000000, FG=0x00000000, Border=0x00000000, BW=0, Text='NULL'
+WARN: Using TEMPORARY HACK for tree building...
+INFO: Found 1 root(s).
+DEBUG CONVERT: Input RGBA=0x000000FF (R=0, G=0, B=0, A=255) -> TB_BLACK
+INFO: Setting initial clear color based on effective App BG 0x000000FF -> 1
+DEBUG CONVERT: Input RGBA=0xFFFFFFFF (R=255, G=255, B=255, A=255) -> TB_WHITE
+INFO: Manually filling background with FG=8 BG=1
+INFO: Terminal size: 80 x 24
+INFO: Using Scale=(1.000, 1.000), Offset=(0, 0)
+DEBUG RENDER: Processing App Element 0x334f58c0. Effective Defaults: BG=0x000000FF, FG=0xFFFFFFFF. Passing parent area (0,0 80x24) scale/offset to children.
+DEBUG CONVERT: Input RGBA=0x000000FF (R=0, G=0, B=0, A=255) -> TB_BLACK
+DEBUG CONVERT: Input RGBA=0xFFFFFFFF (R=255, G=255, B=255, A=255) -> TB_WHITE
+DEBUG CONVERT: Input RGBA=0x808080FF (R=128, G=128, B=128, A=255) -> TB_WHITE (normal)
+DEBUG RENDER: Elem 0x334f6110: Type=0x03 @(0,0) FinalSize=80x24 Borders=[0,0,0,0] Colors=(BG:0x000000FF->1, FG:0xFFFFFFFF->8, BRDR:0x808080FF->8)
+INFO: Rendering complete. Press any key to exit.
+INFO: Cleaning up resources...

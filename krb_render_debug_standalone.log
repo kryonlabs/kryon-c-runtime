@@ -1,0 +1,436 @@
+INFO: Opening KRB: ../../examples/tab_bar.krb
+INFO: Base Directory: ../../examples
+INFO: Reading KRB document...
+INFO: Parsed KRB OK - Ver=0.3 Elements=11 Styles=6 Strings=24 Resources=0 Flags=0x0061
+INFO: Processing App Elem 0 (StyleID=5, Props=4)
+  Applying App Style 4
+  Applying App Direct Props
+INFO: Processed App. Window:360x480 Title:'Bottom Tab Example' Scale:1.00
+INFO: Processing Elem 1 (Type=0x01, StyleID=6, Props=0)
+  Applying Style 5 (Props=3)
+  Applying Direct Props (Count=0)
+  Finished Elem 1. Text='NULL' Align=0 ResIdx=255
+INFO: Processing Elem 2 (Type=0x01, StyleID=0, Props=0)
+  Applying Direct Props (Count=0)
+  Finished Elem 2. Text='NULL' Align=0 ResIdx=255
+INFO: Processing Elem 3 (Type=0x02, StyleID=0, Props=2)
+  Applying Direct Props (Count=2)
+  Finished Elem 3. Text='Home Page Content' Align=0 ResIdx=255
+INFO: Processing Elem 4 (Type=0x01, StyleID=0, Props=0)
+  Applying Direct Props (Count=0)
+  Finished Elem 4. Text='NULL' Align=0 ResIdx=255
+INFO: Processing Elem 5 (Type=0x02, StyleID=0, Props=2)
+  Applying Direct Props (Count=2)
+  Finished Elem 5. Text='Search Results Area' Align=0 ResIdx=255
+INFO: Processing Elem 6 (Type=0x01, StyleID=0, Props=0)
+  Applying Direct Props (Count=0)
+  Finished Elem 6. Text='NULL' Align=0 ResIdx=255
+INFO: Processing Elem 7 (Type=0x01, StyleID=0, Props=0)
+  Applying Direct Props (Count=0)
+  Finished Elem 7. Text='NULL' Align=0 ResIdx=255
+INFO: Processing Elem 8 (Type=0x10, StyleID=4, Props=1)
+  Applying Style 3 (Props=4)
+  Applying Direct Props (Count=1)
+  Finished Elem 8. Text='Home' Align=1 ResIdx=255
+INFO: Processing Elem 9 (Type=0x10, StyleID=3, Props=1)
+  Applying Style 2 (Props=4)
+  Applying Direct Props (Count=1)
+  Finished Elem 9. Text='Search' Align=1 ResIdx=255
+INFO: Processing Elem 10 (Type=0x10, StyleID=3, Props=1)
+  Applying Style 2 (Props=4)
+  Applying Direct Props (Count=1)
+  Finished Elem 10. Text='Profile' Align=1 ResIdx=255
+INFO: Building element tree...
+INFO: Finished building element tree.
+INFO: Found 1 root(s).
+INFO: Init window 360x480 Title: 'Bottom Tab Example'
+INFO: Loading textures...
+INFO: Finished loading textures.
+INFO: Entering main loop...
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=360x480 Borders=[0,0,0,0] Layout=0x24 ResIdx=255
+  Layout Children of Elem 0: Count=2 Dir=0 Align=1 Content=(0,0 360x480)
+DEBUG RENDER: Elem 1 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x04 ResIdx=255
+  Finished Render Elem 1
+DEBUG RENDER: Elem 7 (Type=0x01) @(180,240) Size=0x0 Borders=[0,0,0,0] Layout=0x00 ResIdx=255
+  Finished Render Elem 7
+  Finished Render Elem 0
+INFO: Closing & cleanup...
+INFO: Unloading textures...
