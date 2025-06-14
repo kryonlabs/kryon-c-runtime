@@ -1,826 +1,1007 @@
-INFO: Using embedded KRB data (Size: 190 bytes)
+INFO: Using embedded KRB data (Size: 210 bytes)
 INFO: Reading KRB document from memory...
-INFO: Parsed embedded KRB OK - Elements=2, Styles=1, Strings=4, EventsRead=Yes
+INFO: Parsed embedded KRB OK - Elements=2, Styles=1, Strings=5, EventsRead=Yes
+INFO: Created render context with 2 elements
 INFO: Processing App Element (Index 0)
 INFO: Processed App Element props. Window: 600x400, Title: 'Centered Button'
 DEBUG: Element 1 (Type 0x10) marked interactive.
+INFO: Processing component instances...
+INFO: Finished processing component instances
+INFO: Building element tree...
+INFO: Finished building element tree.
 INFO: Found 1 root element(s).
 INFO: Entering main loop...
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
 INFO: Executing click handler 'handleButtonClick' for element 1
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
-DEBUG RENDER: Elem 0 (Type=0x00) Initial Pos=(0,0) Size=600x400 Borders=[0,0,0,0] Text='NULL' Align=0 Layout=0x04 Interact=0
-  Layout Children of Elem 0: Count=1 Dir=0 Align=1 (LayoutByte=0x04) Content=(0,0 600x400)
-DEBUG RENDER: Elem 1 (Type=0x10) Initial Pos=(225,175) Size=150x50 Borders=[0,0,0,0] Text='Click Me!' Align=1 Layout=0x00 Interact=1
-  -> Drawing Text 'Click Me!' (align=1 -> center=1) at (257,190) within content (225,175 150x50)
-  Finished Rendering Elem 1
-  Finished Rendering Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+INFO: Executing click handler 'handleButtonClick' for element 1
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+INFO: Executing click handler 'handleButtonClick' for element 1
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
+DEBUG RENDER: Elem 0 (Type=0x00) @(0,0) Size=600x400 Borders=[0,0,0,0] Layout=0x05 ResIdx=0
+  Layout Children of Elem 0: Count=1 Dir=1 Align=1 Content=(0,0 600x400)
+DEBUG RENDER: Elem 1 (Type=0x10) @(225,175) Size=150x50 Borders=[0,0,0,0] Layout=0x01 ResIdx=0
+  -> Drawing Text (Type 10) 'Click Me!' (align=1) at (257,190) within content (225,175 150x50)
+  Finished Render Elem 1
+  Finished Render Elem 0
 INFO: Closing window and cleaning up...
