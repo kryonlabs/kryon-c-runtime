@@ -6,6 +6,8 @@
 #include <math.h> 
 #include <libgen.h> 
 
+#include "custom_components.h"
+#include "custom_tabbar.h"
 #include "renderer.h" 
 
 // --- Basic Definitions ---
@@ -69,17 +71,20 @@ void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDoc
                 memcpy(element->border_widths, prop->value, 4);
             }
             break;
-            
+        
         case PROP_ID_TEXT_CONTENT:
             if (prop->value_type == VAL_TYPE_STRING && prop->size == 1) {
                 uint8_t idx = *(uint8_t*)prop->value;
                 if (idx < doc->header.string_count && doc->strings[idx]) {
                     free(element->text);
                     element->text = strdup(doc->strings[idx]);
+                    if (debug_file) {  // Add this debug line
+                        fprintf(debug_file, "    -> Applied text: '%s' to element\n", element->text);
+                    }
                 }
             }
             break;
-            
+
         case PROP_ID_TEXT_ALIGNMENT:
             if (prop->value_type == VAL_TYPE_ENUM && prop->size == 1) {
                 element->text_alignment = *(uint8_t*)prop->value;
@@ -95,6 +100,203 @@ void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDoc
         default:
             // Unknown property, ignore
             break;
+    }
+}
+
+// --- Enhanced minimum size calculation with parent inheritance ---
+void calculate_element_minimum_size(RenderElement* el, float scale_factor) {
+    if (!el) return;
+    
+    int min_w = 0, min_h = 0;
+    bool should_inherit_parent_size = false;
+    
+    // Check if element should inherit parent size
+    if (el->header.type == ELEM_TYPE_CONTAINER || el->header.type == ELEM_TYPE_APP) {
+        // Check for grow layout flag
+        bool has_grow = (el->header.layout & LAYOUT_GROW_BIT) != 0;
+        bool has_explicit_width = (el->header.width > 0);
+        bool has_explicit_height = (el->header.height > 0);
+        
+        // Container should inherit parent size if:
+        // 1. It has the grow flag, OR
+        // 2. It doesn't have explicit dimensions and has a parent
+        should_inherit_parent_size = has_grow || 
+            ((!has_explicit_width || !has_explicit_height) && el->parent != NULL);
+    }
+    
+    // Calculate intrinsic content size
+    if (el->header.type == ELEM_TYPE_TEXT && el->text && el->text[0] != '\0') {
+        int font_size = (int)(BASE_FONT_SIZE * scale_factor);
+        if (font_size < 1) font_size = 1;
+        min_w = MeasureText(el->text, font_size) + (int)(8 * scale_factor);
+        min_h = font_size + (int)(8 * scale_factor);
+    }
+    else if (el->header.type == ELEM_TYPE_BUTTON && el->text && el->text[0] != '\0') {
+        int font_size = (int)(BASE_FONT_SIZE * scale_factor);
+        if (font_size < 1) font_size = 1;
+        min_w = MeasureText(el->text, font_size) + (int)(16 * scale_factor);
+        min_h = font_size + (int)(16 * scale_factor);
+    }
+    else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
+        min_w = (int)(el->texture.width * scale_factor);
+        min_h = (int)(el->texture.height * scale_factor);
+    }
+    else if (should_inherit_parent_size && el->parent) {
+        // For containers that should inherit parent size
+        min_w = el->parent->render_w > 0 ? el->parent->render_w : (int)(100 * scale_factor);
+        min_h = el->parent->render_h > 0 ? el->parent->render_h : (int)(100 * scale_factor);
+    }
+    else if (el->header.type == ELEM_TYPE_CONTAINER || el->header.type == ELEM_TYPE_APP) {
+        // Default minimum for containers without parent inheritance
+        min_w = (int)(100 * scale_factor); // Increased from 20
+        min_h = (int)(100 * scale_factor); // Increased from 20
+    }
+    
+    // Apply explicit sizes or use calculated values
+    if (el->header.width > 0) {
+        el->render_w = (int)(el->header.width * scale_factor);
+    } else if (should_inherit_parent_size && el->parent) {
+        // Inherit parent width if no explicit width
+        el->render_w = el->parent->render_w;
+    } else {
+        el->render_w = min_w;
+    }
+    
+    if (el->header.height > 0) {
+        el->render_h = (int)(el->header.height * scale_factor);
+    } else if (should_inherit_parent_size && el->parent) {
+        // Inherit parent height if no explicit height
+        el->render_h = el->parent->render_h;
+    } else {
+        el->render_h = min_h;
+    }
+    
+    // Ensure minimum size of 1x1 for visible elements
+    if (el->render_w <= 0) el->render_w = 1;
+    if (el->render_h <= 0) el->render_h = 1;
+}
+
+// Helper function to determine if an element should be a child of a component
+bool should_be_child_of_component(RenderElement* potential_child, RenderElement* placeholder, KrbDocument* doc) {
+    // This is a simplified check - in a full implementation, you'd analyze the KRB structure
+    // For now, we'll use element indices and types as heuristics
+    
+    // If the potential child comes after the placeholder and is a button, it's likely a TabBar button
+    if (potential_child->original_index > placeholder->original_index && 
+        potential_child->header.type == ELEM_TYPE_BUTTON &&
+        placeholder->custom_prop_count > 0) {
+        
+        // Check if placeholder is a TabBar
+        for (uint8_t i = 0; i < placeholder->custom_prop_count; i++) {
+            KrbCustomProperty* prop = &placeholder->custom_properties[i];
+            if (prop->key_index < doc->header.string_count && doc->strings[prop->key_index] &&
+                strcmp(doc->strings[prop->key_index], "_componentName") == 0) {
+                
+                if (prop->value_type == VAL_TYPE_STRING && prop->value_size == 1 && prop->value) {
+                    uint8_t comp_name_idx = *(uint8_t*)prop->value;
+                    if (comp_name_idx < doc->header.string_count && doc->strings[comp_name_idx] &&
+                        strcmp(doc->strings[comp_name_idx], "TabBar") == 0) {
+                        return true; // This is a TabBar, so buttons after it are likely its children
+                    }
+                }
+            }
+        }
+    }
+    
+    return false;
+}
+
+void connect_component_instances_to_tree(RenderContext* ctx, FILE* debug_file) {
+    if (!ctx) return;
+    
+    if (debug_file) {
+        fprintf(debug_file, "INFO: Connecting component instances to main tree...\n");
+    }
+    
+    ComponentInstance* instance = ctx->instances;
+    while (instance) {
+        if (instance->root && instance->placeholder) {
+            if (debug_file) {
+                fprintf(debug_file, "  Processing placeholder Element %d, has parent: %s\n", 
+                        instance->placeholder->original_index,
+                        instance->placeholder->parent ? "YES" : "NO");
+            }
+            
+            if (instance->placeholder->parent) {
+                RenderElement* parent = instance->placeholder->parent;
+                
+                if (debug_file) {
+                    fprintf(debug_file, "  Connecting TabBar (Elem %d) to parent (Elem %d)\n", 
+                            instance->root->original_index, parent->original_index);
+                }
+                
+                // Find the placeholder in parent's children and replace it with the component instance
+                for (int i = 0; i < parent->child_count; i++) {
+                    if (parent->children[i] == instance->placeholder) {
+                        parent->children[i] = instance->root;
+                        instance->root->parent = parent;
+                        
+                        if (debug_file) {
+                            fprintf(debug_file, "    Replaced placeholder at child index %d\n", i);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                if (debug_file) {
+                    fprintf(debug_file, "  ERROR: Placeholder Element %d has no parent!\n", 
+                            instance->placeholder->original_index);
+                }
+            }
+        }
+        instance = instance->next;
+    }
+    
+    if (debug_file) {
+        fprintf(debug_file, "INFO: Finished connecting component instances to main tree\n");
+    }
+}
+
+// Simplified component children connection
+void connect_component_children(RenderContext* ctx, FILE* debug_file) {
+    if (!ctx) return;
+    
+    if (debug_file) {
+        fprintf(debug_file, "INFO: Connecting component children...\n");
+    }
+    
+    // For each component instance, find its children based on the original KRB structure
+    ComponentInstance* instance = ctx->instances;
+    while (instance) {
+        if (instance->root && instance->placeholder) {
+            // Find children that were originally children of the placeholder
+            for (int i = 0; i < ctx->original_element_count; i++) {
+                RenderElement* potential_child = &ctx->elements[i];
+                
+                // Skip if this element is a placeholder or already has a parent
+                if (potential_child->is_placeholder || potential_child->parent) continue;
+                
+                // Check if this element was originally a child of the placeholder
+                if (should_be_child_of_component(potential_child, instance->placeholder, ctx->doc)) {
+                    // Make this element a child of the component instance root
+                    if (instance->root->child_count < MAX_ELEMENTS) {
+                        instance->root->children[instance->root->child_count] = potential_child;
+                        potential_child->parent = instance->root;
+                        instance->root->child_count++;
+                        
+                        if (debug_file) {
+                            fprintf(debug_file, "  Connected Element %d as child of component\n", 
+                                    potential_child->original_index);
+                        }
+                    }
+                }
+            }
+        }
+        instance = instance->next;
+    }
+    
+    if (debug_file) {
+        fprintf(debug_file, "INFO: Finished connecting component children\n");
     }
 }
 
@@ -327,53 +529,45 @@ RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file) {
 void free_render_context(RenderContext* ctx) {
     if (!ctx) return;
     
-    // Free component instances
+    // Free element text strings and custom properties
+    for (int i = 0; i < ctx->element_count; i++) {
+        // Only free text if it was allocated
+        if (ctx->elements[i].text) {
+            free(ctx->elements[i].text);
+            ctx->elements[i].text = NULL;
+        }
+        
+        // Only free custom properties if they were allocated
+        if (ctx->elements[i].custom_properties) {
+            free(ctx->elements[i].custom_properties);
+            ctx->elements[i].custom_properties = NULL;
+        }
+    }
+    
+    // Free component instances (but NOT their elements!)
     ComponentInstance* instance = ctx->instances;
     while (instance) {
         ComponentInstance* next = instance->next;
         
-        // Free instance root element and its children recursively
-        if (instance->root) {
-            if (instance->root->text) free(instance->root->text);
-            if (instance->root->texture_loaded) UnloadTexture(instance->root->texture);
-            if (instance->root->custom_properties) {
-                for (uint8_t j = 0; j < instance->root->custom_prop_count; j++) {
-                    if (instance->root->custom_properties[j].value) {
-                        free(instance->root->custom_properties[j].value);
-                    }
-                }
-                free(instance->root->custom_properties);
-            }
-            free(instance->root);
-        }
+        // IMPORTANT: Don't free instance->root or instance->placeholder
+        // They are part of the elements array and will be freed separately
         
         free(instance);
         instance = next;
     }
     
-    // Free elements
-    if (ctx->elements) {
-        for (int i = 0; i < ctx->element_count; i++) {
-            if (ctx->elements[i].text) free(ctx->elements[i].text);
-            if (ctx->elements[i].texture_loaded) UnloadTexture(ctx->elements[i].texture);
-            if (ctx->elements[i].custom_properties) {
-                // Free custom property values
-                for (uint8_t j = 0; j < ctx->elements[i].custom_prop_count; j++) {
-                    if (ctx->elements[i].custom_properties[j].value) {
-                        free(ctx->elements[i].custom_properties[j].value);
-                    }
-                }
-                free(ctx->elements[i].custom_properties);
-            }
-        }
-        free(ctx->elements);
+    // Free the main elements array
+    free(ctx->elements);
+    
+    // Free window title
+    if (ctx->window_title) {
+        free(ctx->window_title);
     }
     
-    if (ctx->window_title) free(ctx->window_title);
+    // Free the context itself
     free(ctx);
 }
 
-// --- Rendering Function ---
 void render_element(RenderElement* el, int parent_content_x, int parent_content_y, int parent_content_width, int parent_content_height, float scale_factor, FILE* debug_file) {
     if (!el) return;
 
@@ -385,46 +579,70 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
         return;
     }
 
-    // --- Calculate Intrinsic Size ---
-    int intrinsic_w = (int)(el->header.width * scale_factor);
-    int intrinsic_h = (int)(el->header.height * scale_factor);
+    // Check if element already has pre-calculated size (from custom components)
+    bool has_precalculated_size = (el->render_w > 0 && el->render_h > 0);
+    
+    int intrinsic_w, intrinsic_h;
+    
+    if (has_precalculated_size) {
+        // Use pre-calculated size from custom components
+        intrinsic_w = el->render_w;
+        intrinsic_h = el->render_h;
+        if (debug_file) {
+            fprintf(debug_file, "DEBUG RENDER: Using pre-calculated size for Elem %d: %dx%d\n", 
+                    el->original_index, intrinsic_w, intrinsic_h);
+        }
+    } else {
+        // --- Calculate Intrinsic Size ---
+        intrinsic_w = (int)(el->header.width * scale_factor);
+        intrinsic_h = (int)(el->header.height * scale_factor);
 
-    if (el->header.type == ELEM_TYPE_TEXT && el->text) {
-        int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
-        int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, font_size) : 0;
-        if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(8 * scale_factor); // Add some padding
-        if (el->header.height == 0) intrinsic_h = font_size + (int)(8 * scale_factor); // Add some padding
-    }
-    else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
-        if (el->header.width == 0) intrinsic_w = (int)(el->texture.width * scale_factor);
-        if (el->header.height == 0) intrinsic_h = (int)(el->texture.height * scale_factor);
-    }
+        if (el->header.type == ELEM_TYPE_TEXT && el->text) {
+            int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
+            int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, font_size) : 0;
+            if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(8 * scale_factor);
+            if (el->header.height == 0) intrinsic_h = font_size + (int)(8 * scale_factor);
+        }
+        else if (el->header.type == ELEM_TYPE_BUTTON && el->text) {
+            int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
+            int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, font_size) : 0;
+            if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(16 * scale_factor); // More padding for buttons
+            if (el->header.height == 0) intrinsic_h = font_size + (int)(16 * scale_factor);
+        }
+        else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
+            if (el->header.width == 0) intrinsic_w = (int)(el->texture.width * scale_factor);
+            if (el->header.height == 0) intrinsic_h = (int)(el->texture.height * scale_factor);
+        }
 
-    // Clamp minimum size
-    if (intrinsic_w < 0) intrinsic_w = 0;
-    if (intrinsic_h < 0) intrinsic_h = 0;
-    if (el->header.width > 0 && intrinsic_w == 0) intrinsic_w = 1; // Ensure non-zero if specified
-    if (el->header.height > 0 && intrinsic_h == 0) intrinsic_h = 1;
+        // Clamp minimum size
+        if (intrinsic_w < 0) intrinsic_w = 0;
+        if (intrinsic_h < 0) intrinsic_h = 0;
+        if (el->header.width > 0 && intrinsic_w == 0) intrinsic_w = 1;
+        if (el->header.height > 0 && intrinsic_h == 0) intrinsic_h = 1;
+    }
 
     // --- Determine Final Position & Size (Layout) ---
     int final_x, final_y;
     int final_w = intrinsic_w;
     int final_h = intrinsic_h;
-    bool has_pos = (el->header.pos_x != 0 || el->header.pos_y != 0); // Explicit position set
+    bool has_pos = (el->header.pos_x != 0 || el->header.pos_y != 0);
     bool is_absolute = (el->header.layout & LAYOUT_ABSOLUTE_BIT);
 
-    // Absolute positioning (or if explicit pos_x/y is set, treat as absolute relative to parent content)
-    if (is_absolute || has_pos) {
+    // Position calculation
+    if (has_precalculated_size && el->render_x != 0 && el->render_y != 0) {
+        // Use pre-calculated position from custom components
+        final_x = el->render_x;
+        final_y = el->render_y;
+    } else if (is_absolute || has_pos) {
+        // Absolute positioning
         final_x = parent_content_x + (int)(el->header.pos_x * scale_factor);
         final_y = parent_content_y + (int)(el->header.pos_y * scale_factor);
-    }
-    // Flow layout - position determined by parent's layout logic (passed via el->render_x/y)
-    else if (el->parent != NULL) {
-        final_x = el->render_x; // Use pre-calculated flow position
+    } else if (el->parent != NULL) {
+        // Flow layout - position determined by parent's layout logic
+        final_x = el->render_x;
         final_y = el->render_y;
-    }
-    // Root element in flow layout - defaults to parent content origin
-    else {
+    } else {
+        // Root element - defaults to parent content origin
         final_x = parent_content_x;
         final_y = parent_content_y;
     }
@@ -437,7 +655,7 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
 
     // --- Apply Styling ---
     Color bg_color = el->bg_color;
-    Color fg_color = el->fg_color; // Used for text
+    Color fg_color = el->fg_color;
     Color border_color = el->border_color;
     int top_bw = (int)(el->border_widths[0] * scale_factor);
     int right_bw = (int)(el->border_widths[1] * scale_factor);
@@ -445,8 +663,14 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
     int left_bw = (int)(el->border_widths[3] * scale_factor);
 
     // Clamp borders if they exceed element size
-    if (el->render_h > 0 && top_bw + bottom_bw >= el->render_h) { top_bw = el->render_h > 1 ? 1 : el->render_h; bottom_bw = 0; }
-    if (el->render_w > 0 && left_bw + right_bw >= el->render_w) { left_bw = el->render_w > 1 ? 1 : el->render_w; right_bw = 0; }
+    if (el->render_h > 0 && top_bw + bottom_bw >= el->render_h) { 
+        top_bw = el->render_h > 1 ? 1 : el->render_h; 
+        bottom_bw = 0; 
+    }
+    if (el->render_w > 0 && left_bw + right_bw >= el->render_w) { 
+        left_bw = el->render_w > 1 ? 1 : el->render_w; 
+        right_bw = 0; 
+    }
 
     // Debug Logging
     if (debug_file) {
@@ -466,7 +690,8 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
         if (top_bw > 0) DrawRectangle(el->render_x, el->render_y, el->render_w, top_bw, border_color);
         if (bottom_bw > 0) DrawRectangle(el->render_x, el->render_y + el->render_h - bottom_bw, el->render_w, bottom_bw, border_color);
         int side_border_y = el->render_y + top_bw;
-        int side_border_height = el->render_h - top_bw - bottom_bw; if (side_border_height < 0) side_border_height = 0;
+        int side_border_height = el->render_h - top_bw - bottom_bw; 
+        if (side_border_height < 0) side_border_height = 0;
         if (left_bw > 0) DrawRectangle(el->render_x, side_border_y, left_bw, side_border_height, border_color);
         if (right_bw > 0) DrawRectangle(el->render_x + el->render_w - right_bw, side_border_y, right_bw, side_border_height, border_color);
     }
@@ -495,14 +720,16 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
             if (text_draw_x < content_x) text_draw_x = content_x; // Clamp
             if (text_draw_y < content_y) text_draw_y = content_y; // Clamp
 
-            if (debug_file) fprintf(debug_file, "  -> Drawing Text (Type %02X) '%s' (align=%d) at (%d,%d) within content (%d,%d %dx%d)\n", el->header.type, el->text, el->text_alignment, text_draw_x, text_draw_y, content_x, content_y, content_width, content_height);
+            if (debug_file) fprintf(debug_file, "  -> Drawing Text (Type %02X) '%s' (align=%d) at (%d,%d) within content (%d,%d %dx%d)\n", 
+                                   el->header.type, el->text, el->text_alignment, text_draw_x, text_draw_y, 
+                                   content_x, content_y, content_width, content_height);
             DrawText(el->text, text_draw_x, text_draw_y, font_size, fg_color);
         }
         
         // Draw Image
         else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
-             if (debug_file) fprintf(debug_file, "  -> Drawing Image Texture (ResIdx %d) within content (%d,%d %dx%d)\n", el->resource_index, content_x, content_y, content_width, content_height);
-             // Simple stretch draw for now
+             if (debug_file) fprintf(debug_file, "  -> Drawing Image Texture (ResIdx %d) within content (%d,%d %dx%d)\n", 
+                                    el->resource_index, content_x, content_y, content_width, content_height);
              Rectangle sourceRec = { 0.0f, 0.0f, (float)el->texture.width, (float)el->texture.height };
              Rectangle destRec = { (float)content_x, (float)content_y, (float)content_width, (float)content_height };
              Vector2 origin = { 0.0f, 0.0f };
@@ -514,51 +741,65 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
 
     // --- Layout and Render Children ---
     if (el->child_count > 0 && content_width > 0 && content_height > 0) {
-        uint8_t direction = el->header.layout & LAYOUT_DIRECTION_MASK; // 00=Row, 01=Col, etc.
-        uint8_t alignment = (el->header.layout & LAYOUT_ALIGNMENT_MASK) >> 2; // 00=Start, 01=Center, etc.
+        uint8_t direction = el->header.layout & LAYOUT_DIRECTION_MASK;
+        uint8_t alignment = (el->header.layout & LAYOUT_ALIGNMENT_MASK) >> 2;
         int current_flow_x = content_x;
         int current_flow_y = content_y;
-        int total_child_width_scaled = 0;  // Total width of flow children in this row/column
-        int total_child_height_scaled = 0; // Total height of flow children in this row/column
-        int flow_child_count = 0;          // Number of children participating in flow layout
-        int child_sizes[MAX_ELEMENTS][2];  // Store calculated sizes [width, height]
+        int total_child_width_scaled = 0;
+        int total_child_height_scaled = 0;
+        int flow_child_count = 0;
+        int child_sizes[MAX_ELEMENTS][2];
 
-        if (debug_file) fprintf(debug_file, "  Layout Children of Elem %d: Count=%d Dir=%d Align=%d Content=(%d,%d %dx%d)\n", el->original_index, el->child_count, direction, alignment, content_x, content_y, content_width, content_height);
+        if (debug_file) fprintf(debug_file, "  Layout Children of Elem %d: Count=%d Dir=%d Align=%d Content=(%d,%d %dx%d)\n", 
+                               el->original_index, el->child_count, direction, alignment, content_x, content_y, content_width, content_height);
 
         // Pass 1: Calculate sizes and total dimensions of flow children
         for (int i = 0; i < el->child_count; i++) {
             RenderElement* child = el->children[i];
             if (!child) continue;
             
-            // Skip placeholder children
             if (child->is_placeholder) {
-                child_sizes[i][0] = 0; child_sizes[i][1] = 0;
+                child_sizes[i][0] = 0; 
+                child_sizes[i][1] = 0;
                 continue;
             }
             
             bool child_is_absolute = (child->header.layout & LAYOUT_ABSOLUTE_BIT);
             bool child_has_pos = (child->header.pos_x != 0 || child->header.pos_y != 0);
 
-            // Skip absolute/positioned children for flow calculations
             if (child_is_absolute || child_has_pos) {
-                child_sizes[i][0] = 0; child_sizes[i][1] = 0;
+                child_sizes[i][0] = 0; 
+                child_sizes[i][1] = 0;
                 continue;
             }
 
-            // Calculate child intrinsic size (similar logic to parent)
-            int child_w = (int)(child->header.width * scale_factor);
-            int child_h = (int)(child->header.height * scale_factor);
-            if (child->header.type == ELEM_TYPE_TEXT && child->text) {
-                int fs = (int)(BASE_FONT_SIZE * scale_factor); if(fs<1)fs=1;
-                int tw = (child->text[0]!='\0') ? MeasureText(child->text, fs):0;
-                if (child->header.width == 0) child_w = tw + (int)(8 * scale_factor);
-                if (child->header.height == 0) child_h = fs + (int)(8 * scale_factor);
+            // Use pre-calculated size if available, otherwise calculate
+            int child_w, child_h;
+            if (child->render_w > 0 && child->render_h > 0) {
+                child_w = child->render_w;
+                child_h = child->render_h;
+            } else {
+                child_w = (int)(child->header.width * scale_factor);
+                child_h = (int)(child->header.height * scale_factor);
+                
+                if (child->header.type == ELEM_TYPE_TEXT && child->text) {
+                    int fs = (int)(BASE_FONT_SIZE * scale_factor); if(fs<1)fs=1;
+                    int tw = (child->text[0]!='\0') ? MeasureText(child->text, fs):0;
+                    if (child->header.width == 0) child_w = tw + (int)(8 * scale_factor);
+                    if (child->header.height == 0) child_h = fs + (int)(8 * scale_factor);
+                }
+                else if (child->header.type == ELEM_TYPE_BUTTON && child->text) {
+                    int fs = (int)(BASE_FONT_SIZE * scale_factor); if(fs<1)fs=1;
+                    int tw = (child->text[0]!='\0') ? MeasureText(child->text, fs):0;
+                    if (child->header.width == 0) child_w = tw + (int)(16 * scale_factor);
+                    if (child->header.height == 0) child_h = fs + (int)(16 * scale_factor);
+                }
+                else if (child->header.type == ELEM_TYPE_IMAGE && child->texture_loaded) {
+                    if (child->header.width == 0) child_w = (int)(child->texture.width * scale_factor);
+                    if (child->header.height == 0) child_h = (int)(child->texture.height * scale_factor);
+                }
             }
-            else if (child->header.type == ELEM_TYPE_IMAGE && child->texture_loaded) {
-                if (child->header.width == 0) child_w = (int)(child->texture.width * scale_factor);
-                if (child->header.height == 0) child_h = (int)(child->texture.height * scale_factor);
-            }
-            // Clamp and ensure minimum size
+
             if (child_w < 0) child_w = 0;
             if (child_h < 0) child_h = 0;
             if (child->header.width > 0 && child_w == 0) child_w = 1;
@@ -567,37 +808,40 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
             child_sizes[i][0] = child_w;
             child_sizes[i][1] = child_h;
 
-            // Accumulate total size based on flow direction
-            if (direction == 0x00 || direction == 0x02) { // Row or RowReverse
+            if (direction == 0x00 || direction == 0x02) {
                 total_child_width_scaled += child_w;
-            } else { // Column or ColumnReverse
+            } else {
                 total_child_height_scaled += child_h;
             }
             flow_child_count++;
         }
 
         // Pass 2: Calculate starting position based on alignment
-        if (direction == 0x00 || direction == 0x02) { // Row flow
-            if (alignment == 0x01) { current_flow_x = content_x + (content_width - total_child_width_scaled) / 2; } // Center
-            else if (alignment == 0x02) { current_flow_x = content_x + content_width - total_child_width_scaled; }   // End
-            // else: Start (default)
-            if (current_flow_x < content_x) current_flow_x = content_x; // Clamp
-        } else { // Column flow
-            if (alignment == 0x01) { current_flow_y = content_y + (content_height - total_child_height_scaled) / 2; } // Center
-            else if (alignment == 0x02) { current_flow_y = content_y + content_height - total_child_height_scaled; }   // End
-            // else: Start (default)
-            if (current_flow_y < content_y) current_flow_y = content_y; // Clamp
+        if (direction == 0x00 || direction == 0x02) {
+            if (alignment == 0x01) { 
+                current_flow_x = content_x + (content_width - total_child_width_scaled) / 2; 
+            } else if (alignment == 0x02) { 
+                current_flow_x = content_x + content_width - total_child_width_scaled; 
+            }
+            if (current_flow_x < content_x) current_flow_x = content_x;
+        } else {
+            if (alignment == 0x01) { 
+                current_flow_y = content_y + (content_height - total_child_height_scaled) / 2; 
+            } else if (alignment == 0x02) { 
+                current_flow_y = content_y + content_height - total_child_height_scaled; 
+            }
+            if (current_flow_y < content_y) current_flow_y = content_y;
         }
 
         // Calculate spacing for SpaceBetween
         float space_between = 0;
-        if (alignment == 0x03 && flow_child_count > 1) { // SpaceBetween
-            if (direction == 0x00 || direction == 0x02) { // Row
+        if (alignment == 0x03 && flow_child_count > 1) {
+            if (direction == 0x00 || direction == 0x02) {
                 space_between = (float)(content_width - total_child_width_scaled) / (flow_child_count - 1);
-            } else { // Column
+            } else {
                 space_between = (float)(content_height - total_child_height_scaled) / (flow_child_count - 1);
             }
-            if (space_between < 0) space_between = 0; // Avoid negative spacing
+            if (space_between < 0) space_between = 0;
         }
 
         // Pass 3: Position and render children
@@ -606,64 +850,56 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
             RenderElement* child = el->children[i];
             if (!child) continue;
             
-            // Skip placeholder children
             if (child->is_placeholder) continue;
 
             bool child_is_absolute = (child->header.layout & LAYOUT_ABSOLUTE_BIT);
             bool child_has_pos = (child->header.pos_x != 0 || child->header.pos_y != 0);
 
-            // Render absolutely positioned children directly relative to parent content area
             if (child_is_absolute || child_has_pos) {
                 render_element(child, content_x, content_y, content_width, content_height, scale_factor, debug_file);
-            }
-            // Position and render flow children
-            else {
+            } else {
                 int child_w = child_sizes[i][0];
                 int child_h = child_sizes[i][1];
                 int child_final_x, child_final_y;
 
-                // Determine position based on flow direction and alignment
-                if (direction == 0x00 || direction == 0x02) { // Row Flow
+                if (direction == 0x00 || direction == 0x02) {
                     child_final_x = current_flow_x;
-                    // Vertical alignment within the row
-                    if (alignment == 0x01) child_final_y = content_y + (content_height - child_h) / 2; // Center
-                    else if (alignment == 0x02) child_final_y = content_y + content_height - child_h; // End (bottom)
-                    else child_final_y = content_y; // Start (top)
-                } else { // Column Flow
+                    if (alignment == 0x01) child_final_y = content_y + (content_height - child_h) / 2;
+                    else if (alignment == 0x02) child_final_y = content_y + content_height - child_h;
+                    else child_final_y = content_y;
+                } else {
                     child_final_y = current_flow_y;
-                    // Horizontal alignment within the column
-                    if (alignment == 0x01) child_final_x = content_x + (content_width - child_w) / 2; // Center
-                    else if (alignment == 0x02) child_final_x = content_x + content_width - child_w; // End (right)
-                    else child_final_x = content_x; // Start (left)
+                    if (alignment == 0x01) child_final_x = content_x + (content_width - child_w) / 2;
+                    else if (alignment == 0x02) child_final_x = content_x + content_width - child_w;
+                    else child_final_x = content_x;
                 }
 
-                // Assign calculated position to child before rendering
-                child->render_x = child_final_x;
-                child->render_y = child_final_y;
+                // Only update position if child doesn't have pre-calculated position
+                if (!(child->render_w > 0 && child->render_h > 0)) {
+                    child->render_x = child_final_x;
+                    child->render_y = child_final_y;
+                }
 
                 render_element(child, content_x, content_y, content_width, content_height, scale_factor, debug_file);
 
-                // Advance flow position for the next child
-                if (direction == 0x00 || direction == 0x02) { // Row
+                if (direction == 0x00 || direction == 0x02) {
                     current_flow_x += child_w;
                     if (alignment == 0x03 && flow_children_processed < flow_child_count - 1) {
-                        current_flow_x += (int)roundf(space_between); // Add space between
+                        current_flow_x += (int)roundf(space_between);
                     }
-                } else { // Column
+                } else {
                     current_flow_y += child_h;
                     if (alignment == 0x03 && flow_children_processed < flow_child_count - 1) {
-                        current_flow_y += (int)roundf(space_between); // Add space between
+                        current_flow_y += (int)roundf(space_between);
                     }
                 }
                 flow_children_processed++;
             }
         }
-    } // End child rendering
+    }
 
     if (debug_file) fprintf(debug_file, "  Finished Render Elem %d\n", el->original_index);
 }
-
-// --- Standalone Main Application Logic ---
 #ifdef BUILD_STANDALONE_RENDERER
 
 int main(int argc, char* argv[]) {
@@ -715,6 +951,11 @@ int main(int argc, char* argv[]) {
          fprintf(debug_file, "WARN: KRB version mismatch! Doc is %d.%d, Reader expects %d.%d.\n",
                  doc.version_major, doc.version_minor, KRB_SPEC_VERSION_MAJOR, KRB_SPEC_VERSION_MINOR);
      }
+
+    // --- Initialize Custom Components System ---
+    init_custom_components();
+
+    fprintf(debug_file, "INFO: Initialized custom components system\n");
 
     // --- Create Render Context ---
     RenderContext* ctx = create_render_context(&doc, debug_file);
@@ -888,17 +1129,16 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // --- Build Parent/Child Tree ---
+    // Connect component children (e.g., TabBar buttons to TabBar)
+    connect_component_children(ctx, debug_file);
+    // --- Build Parent/Child Tree FIRST ---
     fprintf(debug_file, "INFO: Building element tree...\n");
     RenderElement* parent_stack[MAX_ELEMENTS]; 
     int stack_top = -1;
-    
+
     // Build tree for original elements
     for (int i = 0; i < doc.header.element_count; i++) {
         RenderElement* current_el = &ctx->elements[i];
-        
-        // Skip placeholder elements in tree building
-        if (current_el->is_placeholder) continue;
         
         while (stack_top >= 0) { 
             RenderElement* p = parent_stack[stack_top]; 
@@ -924,32 +1164,44 @@ int main(int argc, char* argv[]) {
                 fprintf(debug_file, "WARN: Max stack depth elem %d.\n", i); 
         }
     }
-    
-    // Add component instance roots to the tree
-    ComponentInstance* instance = ctx->instances;
-    while (instance) {
-        if (instance->root && instance->placeholder) {
-            // Replace placeholder with component instance in parent's children
-            if (instance->placeholder->parent) {
-                RenderElement* parent = instance->placeholder->parent;
-                for (int i = 0; i < parent->child_count; i++) {
-                    if (parent->children[i] == instance->placeholder) {
-                        parent->children[i] = instance->root;
-                        instance->root->parent = parent;
-                        break;
-                    }
-                }
-            }
-        }
-        instance = instance->next;
-    }
-    
+
     fprintf(debug_file, "INFO: Finished building element tree.\n");
 
+    // --- Process Component Instances (ONLY ONCE) ---
+    if (!process_component_instances(ctx, debug_file)) {
+        fprintf(stderr, "ERROR: Failed to process component instances\n");
+        free_render_context(ctx);
+        krb_free_document(&doc); free(krb_file_path_copy);
+        if (debug_file != stderr) fclose(debug_file);
+        return 1;
+    }
+
+    // Connect component children (ONLY ONCE)
+    connect_component_children(ctx, debug_file);
+
+    // Connect component instances to the main tree (ONLY ONCE)
+    connect_component_instances_to_tree(ctx, debug_file);
+
+    // --- THEN Calculate minimum sizes ---
+    fprintf(debug_file, "INFO: Calculating element minimum sizes...\n");
+    for (int i = 0; i < ctx->element_count; i++) {
+        calculate_element_minimum_size(&ctx->elements[i], ctx->scale_factor);
+    }
+    fprintf(debug_file, "INFO: Finished calculating minimum sizes\n");
+
+    // --- Process Custom Components ---
+    if (!process_custom_components(ctx, debug_file)) {
+        fprintf(stderr, "ERROR: Failed to process custom components\n");
+        free_render_context(ctx);
+        krb_free_document(&doc); free(krb_file_path_copy);
+        if (debug_file != stderr) fclose(debug_file);
+        return 1;
+    }
+    
     // --- Find Roots ---
     RenderElement* root_elements[MAX_ELEMENTS]; 
     int root_count = 0;
-    
+
     for(int i = 0; i < doc.header.element_count; ++i) { 
         if (!ctx->elements[i].parent && !ctx->elements[i].is_placeholder) { 
             if (root_count < MAX_ELEMENTS) 
@@ -960,7 +1212,17 @@ int main(int argc, char* argv[]) {
             } 
         } 
     }
-    
+
+    // Add component instance roots ONLY if they don't have parents
+    ComponentInstance* instance = ctx->instances;  // <-- Add declaration
+
+    while (instance && root_count < MAX_ELEMENTS) {
+        if (instance->root && !instance->root->parent) {
+            root_elements[root_count++] = instance->root;
+        }
+        instance = instance->next;
+    }
+
     // Add component instance roots that are not already included
     instance = ctx->instances;
     while (instance && root_count < MAX_ELEMENTS) {

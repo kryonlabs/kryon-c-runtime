@@ -21,7 +21,6 @@ typedef struct ComponentInstance {
     struct ComponentInstance* next;     // For linked list of instances
 } ComponentInstance;
 
-// --- Enhanced Render Element Structure ---
 typedef struct RenderElement {
     KrbElementHeader header;
     char* text;
@@ -40,6 +39,7 @@ typedef struct RenderElement {
     int render_w;
     int render_h;
     bool is_interactive;
+    bool is_visible;  // *** ADD THIS LINE ***
     int original_index;
 
     // Resource handling
@@ -47,14 +47,14 @@ typedef struct RenderElement {
     Texture2D texture;
     bool texture_loaded;
 
-    // NEW: Component instance tracking
-    bool is_component_instance;          // True if this element is the root of an instantiated component
-    bool is_placeholder;                 // True if this element is a placeholder (should not render directly)
-    ComponentInstance* component_instance; // If this is a component root, points to instance info
+    // Component instance tracking
+    bool is_component_instance;
+    bool is_placeholder;
+    ComponentInstance* component_instance;
     
-    // NEW: Custom properties support
-    KrbCustomProperty* custom_properties; // Custom properties for this element
-    uint8_t custom_prop_count;           // Number of custom properties
+    // Custom properties support
+    KrbCustomProperty* custom_properties;
+    uint8_t custom_prop_count;
 
 } RenderElement;
 
@@ -79,23 +79,29 @@ typedef struct RenderContext {
 
 // --- Function Declarations ---
 
-// Main rendering function (unchanged interface)
-void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 
-                   int parent_content_width, int parent_content_height, 
-                   float scale_factor, FILE* debug_file);
 
-// NEW: Component instantiation functions
+// Main rendering function
+void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 
+    int parent_content_width, int parent_content_height, 
+    float scale_factor, FILE* debug_file);
+
+// Component instantiation functions
 bool process_component_instances(RenderContext* ctx, FILE* debug_file);
 ComponentInstance* instantiate_component(RenderContext* ctx, RenderElement* placeholder, 
-                                        uint8_t component_def_index, FILE* debug_file);
+                         uint8_t component_def_index, FILE* debug_file);
 RenderElement* create_element_from_template(RenderContext* ctx, KrbElementHeader* template_header,
-                                          KrbProperty* template_properties, int template_prop_count,
-                                          FILE* debug_file);
+                           KrbProperty* template_properties, int template_prop_count,
+                           FILE* debug_file);
 void apply_instance_properties(RenderElement* instance_root, RenderElement* placeholder, FILE* debug_file);
 bool find_component_name_property(KrbCustomProperty* custom_props, uint8_t custom_prop_count, 
-                                 char** strings, uint8_t* out_component_index);
+                  char** strings, uint8_t* out_component_index);
 
-// NEW: Enhanced setup functions
+// Property and sizing functions
+void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDocument* doc, FILE* debug_file);
+void calculate_element_minimum_size(RenderElement* el, float scale_factor);
+void connect_component_children(RenderContext* ctx, FILE* debug_file);
+
+// Setup functions
 RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file);
 void free_render_context(RenderContext* ctx);
 
