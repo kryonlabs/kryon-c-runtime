@@ -10,20 +10,21 @@
 #define MAX_ELEMENTS 256
 #endif
 
-// --- Constants from KRB v0.2 Specification ---
+// --- Constants from KRB v0.4 Specification ---
 
 #define KRB_SPEC_VERSION_MAJOR 0
-#define KRB_SPEC_VERSION_MINOR 3
+#define KRB_SPEC_VERSION_MINOR 4
 
 // Header Flags
-#define FLAG_HAS_STYLES     (1 << 0)
-#define FLAG_HAS_ANIMATIONS (1 << 1)
-#define FLAG_HAS_RESOURCES  (1 << 2)
-#define FLAG_COMPRESSED     (1 << 3)
-#define FLAG_FIXED_POINT    (1 << 4)
-#define FLAG_EXTENDED_COLOR (1 << 5)
-#define FLAG_HAS_APP        (1 << 6)
-// Bits 7-15 Reserved
+#define FLAG_HAS_STYLES        (1 << 0)
+#define FLAG_HAS_COMPONENT_DEFS (1 << 1)
+#define FLAG_HAS_ANIMATIONS    (1 << 2)
+#define FLAG_HAS_RESOURCES     (1 << 3)
+#define FLAG_COMPRESSED        (1 << 4)
+#define FLAG_FIXED_POINT       (1 << 5)
+#define FLAG_EXTENDED_COLOR    (1 << 6)
+#define FLAG_HAS_APP           (1 << 7)
+// Bits 8-15 Reserved
 
 // Element Types
 #define ELEM_TYPE_APP         0x00
@@ -128,30 +129,31 @@
 #define RES_FORMAT_EXTERNAL 0x00
 #define RES_FORMAT_INLINE   0x01
 
-
 // --- Data Structures ---
 
 #pragma pack(push, 1)
 
-// KRB v0.2 Header Structure (42 bytes) - Matches file format exactly
+// KRB v0.4 Header Structure (48 bytes) - Updated from v0.2 (42 bytes)
 typedef struct {
     char magic[4];           // "KRB1"
-    uint16_t version;        // Minor << 8 | Major (e.g., 0x0002 for 0.2)
-    uint16_t flags;
+    uint16_t version;        // Minor << 8 | Major (e.g., 0x0004 for 0.4)
+    uint16_t flags;          // Updated flags including FLAG_HAS_COMPONENT_DEFS
     uint16_t element_count;
     uint16_t style_count;
+    uint16_t component_def_count;    // NEW: Number of component definitions
     uint16_t animation_count;
     uint16_t string_count;
     uint16_t resource_count;
     uint32_t element_offset;
     uint32_t style_offset;
+    uint32_t component_def_offset;   // NEW: Byte offset to component definitions
     uint32_t animation_offset;
     uint32_t string_offset;
-    uint32_t resource_offset; // Added for v0.2
+    uint32_t resource_offset;
     uint32_t total_size;
 } KrbHeader;
 
-// Element Header (17 bytes)
+// Element Header (17 bytes) - Already includes custom_prop_count
 typedef struct {
     uint8_t type;
     uint8_t id;              // 0-based string index
@@ -165,7 +167,7 @@ typedef struct {
     uint8_t child_count;
     uint8_t event_count;
     uint8_t animation_count;
-    uint8_t custom_prop_count; 
+    uint8_t custom_prop_count; // Already present
 } KrbElementHeader;
 
 // Event structure (as stored in file - 2 bytes)
@@ -176,7 +178,6 @@ typedef struct {
 
 #pragma pack(pop)
 
-
 // Structures representing data parsed into memory (don't need packing)
 
 typedef struct {
@@ -185,6 +186,35 @@ typedef struct {
     uint8_t size;
     void* value;
 } KrbProperty;
+
+// NEW: Custom Property structure
+typedef struct {
+    uint8_t key_index;      // 0-based string table index for property key name
+    uint8_t value_type;     // VAL_TYPE_* for the value
+    uint8_t value_size;     // Size of value in bytes
+    void* value;            // Property value data
+} KrbCustomProperty;
+
+// NEW: Property Definition structure (for component definitions)
+typedef struct {
+    uint8_t name_index;     // 0-based string table index for property name
+    uint8_t value_type_hint; // VAL_TYPE_* indicating expected data type
+    uint8_t default_value_size; // Size of default value (0 if no default)
+    void* default_value_data;   // Default value data (NULL if no default)
+} KrbPropertyDefinition;
+
+// NEW: Component Definition structure
+typedef struct {
+    uint8_t name_index;         // 0-based string table index for component name
+    uint8_t property_def_count; // Number of property definitions
+    KrbPropertyDefinition* property_defs; // Array of property definitions
+    // Root element template follows as a complete KRB Element Block
+    KrbElementHeader root_template_header;
+    KrbProperty* root_template_properties;    // Standard properties for root template
+    KrbCustomProperty* root_template_custom_props; // Custom properties for root template (typically 0)
+    KrbEventFileEntry* root_template_events;  // Events for root template (typically 0)
+    // Child references would follow, but for simplicity we'll handle this in parsing
+} KrbComponentDefinition;
 
 typedef struct {
     uint8_t id;
@@ -207,20 +237,21 @@ typedef struct {
     KrbHeader header; // Copy of the raw header data
 
     // Parsed version for convenience
-    uint8_t version_major; // <-- Moved here
-    uint8_t version_minor; // <-- Moved here
+    uint8_t version_major;
+    uint8_t version_minor;
 
     // Arrays holding parsed data
     KrbElementHeader* elements;
-    KrbProperty** properties;
+    KrbProperty** properties;              // Standard properties per element
+    KrbCustomProperty** custom_properties; // NEW: Custom properties per element
     KrbEventFileEntry** events;
     KrbStyle* styles;
+    KrbComponentDefinition* component_defs; // NEW: Component definitions
     char** strings;
     KrbResource* resources;
     // KrbAnimation* animations; // TODO
 
 } KrbDocument;
-
 
 // --- Function Prototypes for krb_reader.c ---
 
@@ -233,6 +264,5 @@ void krb_free_document(KrbDocument* doc);
 // Helpers for reading little-endian values
 uint16_t krb_read_u16_le(const void* data);
 uint32_t krb_read_u32_le(const void* data);
-
 
 #endif // KRB_H

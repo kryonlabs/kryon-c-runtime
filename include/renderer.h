@@ -2,68 +2,101 @@
 #define KRB_RENDERER_H
 
 #include <stdio.h>
-#include <stdbool.h> // For bool type
-#include "raylib.h"  // Needs Texture2D definition
-#include "krb.h"     // Needs KRB types like KrbElementHeader, ELEM_TYPE_*, etc.
+#include <stdbool.h>
+#include "raylib.h"
+#include "krb.h"
 
-// Define MAX_ELEMENTS if not already defined (should match krb.h)
 #ifndef MAX_ELEMENTS
 #define MAX_ELEMENTS 256
 #endif
 
-
 #define MAX_LINE_LENGTH 512
+#define INVALID_RESOURCE_INDEX 0xFF
 
-// Define INVALID_RESOURCE_INDEX (used by renderer logic)
-#ifndef INVALID_RESOURCE_INDEX
-#define INVALID_RESOURCE_INDEX 0xFF // Or choose another suitable invalid value
-#endif
+// --- Component Instance Tracking ---
+typedef struct ComponentInstance {
+    uint8_t definition_index;           // Index into KrbDocument's component_defs array
+    struct RenderElement* placeholder;  // Original placeholder element
+    struct RenderElement* root;         // Root of instantiated component tree
+    struct ComponentInstance* next;     // For linked list of instances
+} ComponentInstance;
 
-// --- Renderer Structure (Holds processed data ready for rendering) ---
+// --- Enhanced Render Element Structure ---
 typedef struct RenderElement {
-    KrbElementHeader header;      // Copy of the header
-    char* text;                   // Resolved text string (allocated)
-    Color bg_color;               // Resolved background color
-    Color fg_color;               // Resolved foreground/text color
-    Color border_color;           // Resolved border color
-    uint8_t border_widths[4];     // Resolved border widths [T, R, B, L]
-    uint8_t text_alignment;       // Resolved text alignment (0=L, 1=C, 2=R)
-    struct RenderElement* parent; // Pointer to parent RenderElement
-    struct RenderElement* children[MAX_ELEMENTS]; // Array of pointers to children
-    int child_count;              // Actual number of children linked
+    KrbElementHeader header;
+    char* text;
+    Color bg_color;
+    Color fg_color;
+    Color border_color;
+    uint8_t border_widths[4];
+    uint8_t text_alignment;
+    struct RenderElement* parent;
+    struct RenderElement* children[MAX_ELEMENTS];
+    int child_count;
 
-    // --- Runtime Rendering Data ---
-    int render_x;                 // Final calculated X position on screen
-    int render_y;                 // Final calculated Y position on screen
-    int render_w;                 // Final calculated width on screen
-    int render_h;                 // Final calculated height on screen
-    bool is_interactive;          // Flag indicating if this element responds to hover/click
-    int original_index;           // Original index from KrbDocument (useful for mapping)
+    // Runtime rendering data
+    int render_x;
+    int render_y;
+    int render_w;
+    int render_h;
+    bool is_interactive;
+    int original_index;
 
-    // --- Resource Handling (Fields added for textures) ---
-    uint8_t resource_index;       // Index into KrbDocument's resources array (0-based), or INVALID_RESOURCE_INDEX
-    Texture2D texture;            // Loaded Raylib texture (if type is Image and resource loaded)
-    bool texture_loaded;          // Flag indicating if texture was loaded successfully
+    // Resource handling
+    uint8_t resource_index;
+    Texture2D texture;
+    bool texture_loaded;
+
+    // NEW: Component instance tracking
+    bool is_component_instance;          // True if this element is the root of an instantiated component
+    bool is_placeholder;                 // True if this element is a placeholder (should not render directly)
+    ComponentInstance* component_instance; // If this is a component root, points to instance info
+    
+    // NEW: Custom properties support
+    KrbCustomProperty* custom_properties; // Custom properties for this element
+    uint8_t custom_prop_count;           // Number of custom properties
 
 } RenderElement;
 
+// --- Enhanced Document Context ---
+typedef struct RenderContext {
+    KrbDocument* doc;                   // Original KRB document
+    RenderElement* elements;            // Array of all render elements (including instantiated ones)
+    int element_count;                  // Total number of elements (original + instantiated)
+    int original_element_count;         // Number of original elements from KRB
+    ComponentInstance* instances;       // Linked list of component instances
+    
+    // Rendering state
+    Color default_bg;
+    Color default_fg;
+    Color default_border;
+    int window_width;
+    int window_height;
+    float scale_factor;
+    char* window_title;
+    bool resizable;
+} RenderContext;
 
-// --- Public Function Declarations ---
+// --- Function Declarations ---
 
-// (read_u16 is now krb_read_u16_le in krb.h/c)
+// Main rendering function (unchanged interface)
+void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 
+                   int parent_content_width, int parent_content_height, 
+                   float scale_factor, FILE* debug_file);
 
-// The core recursive rendering function
-void render_element(RenderElement* el,
-                    int parent_content_x,
-                    int parent_content_y,
-                    int parent_content_width,
-                    int parent_content_height,
-                    float scale_factor,
-                    FILE* debug_file); // Optional debug output file
+// NEW: Component instantiation functions
+bool process_component_instances(RenderContext* ctx, FILE* debug_file);
+ComponentInstance* instantiate_component(RenderContext* ctx, RenderElement* placeholder, 
+                                        uint8_t component_def_index, FILE* debug_file);
+RenderElement* create_element_from_template(RenderContext* ctx, KrbElementHeader* template_header,
+                                          KrbProperty* template_properties, int template_prop_count,
+                                          FILE* debug_file);
+void apply_instance_properties(RenderElement* instance_root, RenderElement* placeholder, FILE* debug_file);
+bool find_component_name_property(KrbCustomProperty* custom_props, uint8_t custom_prop_count, 
+                                 char** strings, uint8_t* out_component_index);
 
-// Consider adding more functions here if you break down the original main(), e.g.:
-// RenderElement* krb_prepare_render_tree(KrbDocument* doc, FILE* debug_file, Color* out_default_bg, ...);
-// void krb_free_render_tree(RenderElement* elements, int count);
-
+// NEW: Enhanced setup functions
+RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file);
+void free_render_context(RenderContext* ctx);
 
 #endif // KRB_RENDERER_H
