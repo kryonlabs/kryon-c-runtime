@@ -16,6 +16,23 @@
 #define DEFAULT_SCALE_FACTOR 1.0f
 #define BASE_FONT_SIZE 20
 
+// --- Forward Declarations ---
+void initialize_render_element(RenderElement* el, KrbElementHeader* header, int index, RenderContext* ctx);
+bool expand_all_components(RenderContext* ctx, FILE* debug_file);
+bool expand_component_for_element(RenderContext* ctx, RenderElement* element, uint8_t component_name_index, FILE* debug_file);
+void apply_property_inheritance(RenderContext* ctx, FILE* debug_file);
+void inherit_properties_recursive(RenderElement* el, RenderContext* ctx, FILE* debug_file);
+void find_root_elements(RenderContext* ctx, FILE* debug_file);
+void process_app_element_properties(RenderElement* app_element, KrbDocument* doc, RenderContext* ctx, FILE* debug_file);
+void apply_element_styling(RenderElement* el, KrbDocument* doc, RenderContext* ctx, FILE* debug_file);
+void build_element_tree(RenderContext* ctx, FILE* debug_file);
+void load_all_textures(RenderContext* ctx, const char* base_dir, FILE* debug_file);
+void handle_window_resize(RenderContext* ctx);
+
+
+static bool g_cursor_set_this_frame = false;
+static int g_highest_cursor_priority = -1;
+
 // --- Component Instantiation Functions ---
 
 bool find_component_name_property(KrbCustomProperty* custom_props, uint8_t custom_prop_count, 
@@ -78,7 +95,7 @@ void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDoc
                 if (idx < doc->header.string_count && doc->strings[idx]) {
                     free(element->text);
                     element->text = strdup(doc->strings[idx]);
-                    if (debug_file) {  // Add this debug line
+                    if (debug_file) {
                         fprintf(debug_file, "    -> Applied text: '%s' to element\n", element->text);
                     }
                 }
@@ -97,13 +114,31 @@ void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDoc
             }
             break;
             
+        case PROP_ID_VISIBILITY:
+            if (prop->value_type == VAL_TYPE_BYTE && prop->size == 1) {
+                element->is_visible = (*(uint8_t*)prop->value != 0);
+                if (debug_file) {
+                    fprintf(debug_file, "    -> Applied visibility: %s to element\n", 
+                            element->is_visible ? "true" : "false");
+                }
+            }
+            break;
+
+        case PROP_ID_FONT_SIZE:
+            if (prop->value_type == VAL_TYPE_SHORT && prop->size == 2) {
+                uint16_t font_size = krb_read_u16_le(prop->value);
+                element->font_size = (float)font_size;
+                if (debug_file) {
+                    fprintf(debug_file, "    -> Applied font size: %.1f to element\n", element->font_size);
+                }
+            }
+            break;
+            
         default:
             // Unknown property, ignore
             break;
     }
 }
-
-// --- Enhanced minimum size calculation with parent inheritance ---
 void calculate_element_minimum_size(RenderElement* el, float scale_factor) {
     if (!el) return;
     
@@ -112,51 +147,59 @@ void calculate_element_minimum_size(RenderElement* el, float scale_factor) {
     
     // Check if element should inherit parent size
     if (el->header.type == ELEM_TYPE_CONTAINER || el->header.type == ELEM_TYPE_APP) {
-        // Check for grow layout flag
         bool has_grow = (el->header.layout & LAYOUT_GROW_BIT) != 0;
         bool has_explicit_width = (el->header.width > 0);
         bool has_explicit_height = (el->header.height > 0);
         
-        // Container should inherit parent size if:
-        // 1. It has the grow flag, OR
-        // 2. It doesn't have explicit dimensions and has a parent
         should_inherit_parent_size = has_grow || 
             ((!has_explicit_width || !has_explicit_height) && el->parent != NULL);
     }
     
     // Calculate intrinsic content size
     if (el->header.type == ELEM_TYPE_TEXT && el->text && el->text[0] != '\0') {
-        int font_size = (int)(BASE_FONT_SIZE * scale_factor);
-        if (font_size < 1) font_size = 1;
-        min_w = MeasureText(el->text, font_size) + (int)(8 * scale_factor);
-        min_h = font_size + (int)(8 * scale_factor);
+        // CRITICAL FIX: Force proper text sizing with debugging
+        float font_size = (el->font_size > 0) ? el->font_size : BASE_FONT_SIZE;
+        int scaled_font_size = (int)(font_size * scale_factor);
+        if (scaled_font_size < 1) scaled_font_size = 1;
+        
+        int text_width_measured = MeasureText(el->text, scaled_font_size);
+        min_w = text_width_measured + (int)(8 * scale_factor);
+        min_h = scaled_font_size + (int)(8 * scale_factor);
+        
+        // FORCE the calculated size - this is the critical fix
+        el->render_w = min_w;
+        el->render_h = min_h;
+        
+        printf("TEXT SIZE DEBUG: '%s' font_size=%.1f scaled=%d measured_width=%d final_size=%dx%d\n", 
+               el->text, font_size, scaled_font_size, text_width_measured, min_w, min_h);
+        
+        return; // Skip the normal size application logic for text
     }
     else if (el->header.type == ELEM_TYPE_BUTTON && el->text && el->text[0] != '\0') {
-        int font_size = (int)(BASE_FONT_SIZE * scale_factor);
-        if (font_size < 1) font_size = 1;
-        min_w = MeasureText(el->text, font_size) + (int)(16 * scale_factor);
-        min_h = font_size + (int)(16 * scale_factor);
+        float font_size = (el->font_size > 0) ? el->font_size : BASE_FONT_SIZE;
+        int scaled_font_size = (int)(font_size * scale_factor);
+        if (scaled_font_size < 1) scaled_font_size = 1;
+        int text_width_measured = MeasureText(el->text, scaled_font_size);
+        min_w = text_width_measured + (int)(16 * scale_factor);
+        min_h = scaled_font_size + (int)(16 * scale_factor);
     }
     else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
         min_w = (int)(el->texture.width * scale_factor);
         min_h = (int)(el->texture.height * scale_factor);
     }
     else if (should_inherit_parent_size && el->parent) {
-        // For containers that should inherit parent size
         min_w = el->parent->render_w > 0 ? el->parent->render_w : (int)(100 * scale_factor);
         min_h = el->parent->render_h > 0 ? el->parent->render_h : (int)(100 * scale_factor);
     }
     else if (el->header.type == ELEM_TYPE_CONTAINER || el->header.type == ELEM_TYPE_APP) {
-        // Default minimum for containers without parent inheritance
-        min_w = (int)(100 * scale_factor); // Increased from 20
-        min_h = (int)(100 * scale_factor); // Increased from 20
+        min_w = (int)(100 * scale_factor);
+        min_h = (int)(100 * scale_factor);
     }
     
-    // Apply explicit sizes or use calculated values
+    // Apply explicit sizes or use calculated values (for non-text elements)
     if (el->header.width > 0) {
         el->render_w = (int)(el->header.width * scale_factor);
     } else if (should_inherit_parent_size && el->parent) {
-        // Inherit parent width if no explicit width
         el->render_w = el->parent->render_w;
     } else {
         el->render_w = min_w;
@@ -165,7 +208,6 @@ void calculate_element_minimum_size(RenderElement* el, float scale_factor) {
     if (el->header.height > 0) {
         el->render_h = (int)(el->header.height * scale_factor);
     } else if (should_inherit_parent_size && el->parent) {
-        // Inherit parent height if no explicit height
         el->render_h = el->parent->render_h;
     } else {
         el->render_h = min_h;
@@ -176,279 +218,171 @@ void calculate_element_minimum_size(RenderElement* el, float scale_factor) {
     if (el->render_h <= 0) el->render_h = 1;
 }
 
-// Helper function to determine if an element should be a child of a component
-bool should_be_child_of_component(RenderElement* potential_child, RenderElement* placeholder, KrbDocument* doc) {
-    // This is a simplified check - in a full implementation, you'd analyze the KRB structure
-    // For now, we'll use element indices and types as heuristics
+void initialize_render_element(RenderElement* el, KrbElementHeader* header, int index, RenderContext* ctx) {
+    el->header = *header;
+    el->original_index = index;
+    el->text = NULL;
+    el->bg_color = (Color){0, 0, 0, 0}; // Transparent
+    el->fg_color = (Color){0, 0, 0, 0}; // Unset - will inherit
+    el->border_color = (Color){0, 0, 0, 0}; // Transparent
+    memset(el->border_widths, 0, 4);
+    el->text_alignment = 0; // Will inherit
+    el->parent = NULL;
+    el->child_count = 0;
+    el->texture_loaded = false;
+    el->resource_index = INVALID_RESOURCE_INDEX;
+    el->is_placeholder = false;
+    el->is_component_instance = false;
+    el->component_instance = NULL;
+    el->custom_properties = NULL;
+    el->custom_prop_count = 0;
+    el->is_visible = true; // Default visible
+    el->is_interactive = (header->type == ELEM_TYPE_BUTTON || header->type == ELEM_TYPE_INPUT);
+    el->font_size = 0.0f; // Will inherit
     
-    // If the potential child comes after the placeholder and is a button, it's likely a TabBar button
-    if (potential_child->original_index > placeholder->original_index && 
-        potential_child->header.type == ELEM_TYPE_BUTTON &&
-        placeholder->custom_prop_count > 0) {
-        
-        // Check if placeholder is a TabBar
-        for (uint8_t i = 0; i < placeholder->custom_prop_count; i++) {
-            KrbCustomProperty* prop = &placeholder->custom_properties[i];
-            if (prop->key_index < doc->header.string_count && doc->strings[prop->key_index] &&
-                strcmp(doc->strings[prop->key_index], "_componentName") == 0) {
-                
-                if (prop->value_type == VAL_TYPE_STRING && prop->value_size == 1 && prop->value) {
-                    uint8_t comp_name_idx = *(uint8_t*)prop->value;
-                    if (comp_name_idx < doc->header.string_count && doc->strings[comp_name_idx] &&
-                        strcmp(doc->strings[comp_name_idx], "TabBar") == 0) {
-                        return true; // This is a TabBar, so buttons after it are likely its children
-                    }
-                }
-            }
+    for(int k = 0; k < MAX_ELEMENTS; k++) el->children[k] = NULL;
+    el->render_x = 0; el->render_y = 0; el->render_w = 0; el->render_h = 0;
+}
+
+void process_app_element_properties(RenderElement* app_element, KrbDocument* doc, RenderContext* ctx, FILE* debug_file) {
+    if (!app_element || !doc || !ctx) return;
+    
+    // Apply App Style if present
+    if (app_element->header.style_id > 0 && app_element->header.style_id <= doc->header.style_count && doc->styles) {
+        int style_idx = app_element->header.style_id - 1; 
+        KrbStyle* app_style = &doc->styles[style_idx];
+        for(int j = 0; j < app_style->property_count; j++) { 
+            apply_property_to_element(app_element, &app_style->properties[j], doc, debug_file);
         }
     }
     
-    return false;
-}
-
-void connect_component_instances_to_tree(RenderContext* ctx, FILE* debug_file) {
-    if (!ctx) return;
-    
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Connecting component instances to main tree...\n");
-    }
-    
-    ComponentInstance* instance = ctx->instances;
-    while (instance) {
-        if (instance->root && instance->placeholder) {
-            if (debug_file) {
-                fprintf(debug_file, "  Processing placeholder Element %d, has parent: %s\n", 
-                        instance->placeholder->original_index,
-                        instance->placeholder->parent ? "YES" : "NO");
-            }
+    // Apply App Direct Properties for window configuration
+    if (doc->properties && doc->properties[0]) {
+        for (int j = 0; j < app_element->header.property_count; j++) { 
+            KrbProperty* prop = &doc->properties[0][j]; 
+            if (!prop || !prop->value) continue; 
             
-            if (instance->placeholder->parent) {
-                RenderElement* parent = instance->placeholder->parent;
-                
-                if (debug_file) {
-                    fprintf(debug_file, "  Connecting TabBar (Elem %d) to parent (Elem %d)\n", 
-                            instance->root->original_index, parent->original_index);
-                }
-                
-                // Find the placeholder in parent's children and replace it with the component instance
-                for (int i = 0; i < parent->child_count; i++) {
-                    if (parent->children[i] == instance->placeholder) {
-                        parent->children[i] = instance->root;
-                        instance->root->parent = parent;
-                        
-                        if (debug_file) {
-                            fprintf(debug_file, "    Replaced placeholder at child index %d\n", i);
-                        }
-                        break;
+            switch (prop->property_id) {
+                case PROP_ID_WINDOW_WIDTH:
+                    if (prop->value_type == VAL_TYPE_SHORT && prop->size == 2) { 
+                        ctx->window_width = krb_read_u16_le(prop->value); 
+                        app_element->header.width = ctx->window_width; 
                     }
-                }
-            } else {
-                if (debug_file) {
-                    fprintf(debug_file, "  ERROR: Placeholder Element %d has no parent!\n", 
-                            instance->placeholder->original_index);
-                }
+                    break;
+                case PROP_ID_WINDOW_HEIGHT:
+                    if (prop->value_type == VAL_TYPE_SHORT && prop->size == 2) { 
+                        ctx->window_height = krb_read_u16_le(prop->value); 
+                        app_element->header.height = ctx->window_height; 
+                    }
+                    break;
+                case PROP_ID_WINDOW_TITLE:
+                    if (prop->value_type == VAL_TYPE_STRING && prop->size == 1) { 
+                        uint8_t idx = *(uint8_t*)prop->value; 
+                        if (idx < doc->header.string_count && doc->strings[idx]) { 
+                            free(ctx->window_title); 
+                            ctx->window_title = strdup(doc->strings[idx]); 
+                        } 
+                    }
+                    break;
+                case PROP_ID_RESIZABLE:
+                    if (prop->value_type == VAL_TYPE_BYTE && prop->size == 1) { 
+                        ctx->resizable = *(uint8_t*)prop->value; 
+                    }
+                    break;
+                case PROP_ID_SCALE_FACTOR:
+                    if (prop->value_type == VAL_TYPE_PERCENTAGE && prop->size == 2) { 
+                        uint16_t sf = krb_read_u16_le(prop->value); 
+                        ctx->scale_factor = sf / 256.0f; 
+                    }
+                    break;
+                default:
+                    apply_property_to_element(app_element, prop, doc, debug_file);
+                    break;
             }
         }
-        instance = instance->next;
     }
     
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Finished connecting component instances to main tree\n");
-    }
+    app_element->render_w = ctx->window_width; 
+    app_element->render_h = ctx->window_height; 
+    app_element->render_x = 0; 
+    app_element->render_y = 0;
 }
 
-// Simplified component children connection
-void connect_component_children(RenderContext* ctx, FILE* debug_file) {
-    if (!ctx) return;
+void apply_element_styling(RenderElement* el, KrbDocument* doc, RenderContext* ctx, FILE* debug_file) {
+    if (!el || !doc || !ctx) return;
     
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Connecting component children...\n");
+    // Apply Style
+    if (el->header.style_id > 0 && el->header.style_id <= doc->header.style_count && doc->styles) {
+        int style_idx = el->header.style_id - 1; 
+        KrbStyle* style = &doc->styles[style_idx];
+        for(int j = 0; j < style->property_count; j++) { 
+            apply_property_to_element(el, &style->properties[j], doc, debug_file);
+        }
     }
     
-    // For each component instance, find its children based on the original KRB structure
-    ComponentInstance* instance = ctx->instances;
-    while (instance) {
-        if (instance->root && instance->placeholder) {
-            // Find children that were originally children of the placeholder
-            for (int i = 0; i < ctx->original_element_count; i++) {
-                RenderElement* potential_child = &ctx->elements[i];
-                
-                // Skip if this element is a placeholder or already has a parent
-                if (potential_child->is_placeholder || potential_child->parent) continue;
-                
-                // Check if this element was originally a child of the placeholder
-                if (should_be_child_of_component(potential_child, instance->placeholder, ctx->doc)) {
-                    // Make this element a child of the component instance root
-                    if (instance->root->child_count < MAX_ELEMENTS) {
-                        instance->root->children[instance->root->child_count] = potential_child;
-                        potential_child->parent = instance->root;
-                        instance->root->child_count++;
-                        
-                        if (debug_file) {
-                            fprintf(debug_file, "  Connected Element %d as child of component\n", 
-                                    potential_child->original_index);
-                        }
-                    }
-                }
+    // Apply Direct Properties
+    if (doc->properties && el->original_index < doc->header.element_count && doc->properties[el->original_index]) {
+        for (int j = 0; j < el->header.property_count; j++) { 
+            apply_property_to_element(el, &doc->properties[el->original_index][j], doc, debug_file);
+        }
+    }
+    
+    // Copy custom properties if present
+    if (doc->elements[el->original_index].custom_prop_count > 0 && doc->custom_properties && doc->custom_properties[el->original_index]) {
+        el->custom_prop_count = doc->elements[el->original_index].custom_prop_count;
+        el->custom_properties = calloc(el->custom_prop_count, sizeof(KrbCustomProperty));
+        if (el->custom_properties) {
+            for (uint8_t j = 0; j < el->custom_prop_count; j++) {
+                el->custom_properties[j] = doc->custom_properties[el->original_index][j];
             }
         }
-        instance = instance->next;
-    }
-    
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Finished connecting component children\n");
     }
 }
 
-RenderElement* create_element_from_template(RenderContext* ctx, KrbElementHeader* template_header,
-                                          KrbProperty* template_properties, int template_prop_count,
-                                          FILE* debug_file) {
-    if (!ctx || !template_header) return NULL;
+void build_element_tree(RenderContext* ctx, FILE* debug_file) {
+    if (!ctx || !ctx->doc) return;
     
-    // Allocate new render element
-    RenderElement* new_element = calloc(1, sizeof(RenderElement));
-    if (!new_element) {
-        if (debug_file) fprintf(debug_file, "ERROR: Failed to allocate memory for template element\n");
-        return NULL;
+    fprintf(debug_file, "INFO: Building element tree...\n");
+    
+    RenderElement* parent_stack[MAX_ELEMENTS]; 
+    int stack_top = -1;
+
+    for (int i = 0; i < ctx->original_element_count; i++) {
+        RenderElement* current_el = &ctx->elements[i];
+        
+        // Find parent based on child count structure
+        while (stack_top >= 0) { 
+            RenderElement* p = parent_stack[stack_top]; 
+            if (p->child_count >= p->header.child_count) 
+                stack_top--; 
+            else 
+                break; 
+        }
+        
+        // Set parent relationship
+        if (stack_top >= 0) { 
+            RenderElement* p = parent_stack[stack_top]; 
+            current_el->parent = p; 
+            if (p->child_count < MAX_ELEMENTS) 
+                p->children[p->child_count++] = current_el; 
+        }
+        
+        // Push to stack if has children
+        if (current_el->header.child_count > 0) { 
+            if (stack_top + 1 < MAX_ELEMENTS) 
+                parent_stack[++stack_top] = current_el; 
+        }
     }
     
-    // Copy template header
-    new_element->header = *template_header;
-    new_element->original_index = -1; // Mark as instantiated
-    new_element->is_component_instance = false;
-    new_element->is_placeholder = false;
-    new_element->component_instance = NULL;
-    
-    // Initialize default colors from context
-    new_element->bg_color = ctx->default_bg;
-    new_element->fg_color = ctx->default_fg;
-    new_element->border_color = ctx->default_border;
-    memset(new_element->border_widths, 0, 4);
-    new_element->text_alignment = 0;
-    new_element->texture_loaded = false;
-    new_element->resource_index = INVALID_RESOURCE_INDEX;
-    new_element->custom_properties = NULL;
-    new_element->custom_prop_count = 0;
-    new_element->parent = NULL;
-    new_element->child_count = 0;
-    new_element->is_interactive = (new_element->header.type == ELEM_TYPE_BUTTON || new_element->header.type == ELEM_TYPE_INPUT);
-    
-    for(int k = 0; k < MAX_ELEMENTS; ++k) new_element->children[k] = NULL;
-    
-    // Apply template properties
-    for (int j = 0; j < template_prop_count; j++) {
-        apply_property_to_element(new_element, &template_properties[j], ctx->doc, debug_file);
-    }
-    
-    if (debug_file) {
-        fprintf(debug_file, "  Created element from template: Type=0x%02X, Text='%s'\n", 
-                new_element->header.type, new_element->text ? new_element->text : "NULL");
-    }
-    
-    return new_element;
+    fprintf(debug_file, "INFO: Element tree built\n");
 }
 
-void apply_instance_properties(RenderElement* instance_root, RenderElement* placeholder, FILE* debug_file) {
-    if (!instance_root || !placeholder) return;
-    
-    // Apply header properties from placeholder to instance root
-    if (placeholder->header.pos_x != 0 || placeholder->header.pos_y != 0) {
-        instance_root->header.pos_x = placeholder->header.pos_x;
-        instance_root->header.pos_y = placeholder->header.pos_y;
-    }
-    
-    if (placeholder->header.width != 0) {
-        instance_root->header.width = placeholder->header.width;
-    }
-    
-    if (placeholder->header.height != 0) {
-        instance_root->header.height = placeholder->header.height;
-    }
-    
-    // Apply style if specified
-    if (placeholder->header.style_id != 0) {
-        instance_root->header.style_id = placeholder->header.style_id;
-    }
-    
-    // Apply layout if specified
-    if (placeholder->header.layout != 0) {
-        instance_root->header.layout = placeholder->header.layout;
-    }
-    
-    // Copy ID for identification
-    instance_root->header.id = placeholder->header.id;
-    
-    if (debug_file) {
-        fprintf(debug_file, "  Applied instance properties: Pos=(%d,%d), Size=%dx%d, StyleID=%d\n",
-                instance_root->header.pos_x, instance_root->header.pos_y,
-                instance_root->header.width, instance_root->header.height,
-                instance_root->header.style_id);
-    }
-}
-
-ComponentInstance* instantiate_component(RenderContext* ctx, RenderElement* placeholder, 
-                                        uint8_t component_def_index, FILE* debug_file) {
-    if (!ctx || !placeholder || component_def_index >= ctx->doc->header.component_def_count) {
-        return NULL;
-    }
-    
-    KrbComponentDefinition* comp_def = &ctx->doc->component_defs[component_def_index];
-    
-    if (debug_file) {
-        fprintf(debug_file, "  Instantiating component: DefIndex=%d, Name='%s'\n", 
-                component_def_index, 
-                comp_def->name_index < ctx->doc->header.string_count ? 
-                ctx->doc->strings[comp_def->name_index] : "UNKNOWN");
-    }
-    
-    // Create component instance tracking
-    ComponentInstance* instance = calloc(1, sizeof(ComponentInstance));
-    if (!instance) {
-        if (debug_file) fprintf(debug_file, "ERROR: Failed to allocate ComponentInstance\n");
-        return NULL;
-    }
-    
-    instance->definition_index = component_def_index;
-    instance->placeholder = placeholder;
-    
-    // Create root element from template
-    instance->root = create_element_from_template(ctx, &comp_def->root_template_header,
-                                                 comp_def->root_template_properties,
-                                                 comp_def->root_template_header.property_count,
-                                                 debug_file);
-    
-    if (!instance->root) {
-        free(instance);
-        return NULL;
-    }
-    
-    // Apply instance-specific properties from placeholder to component root
-    apply_instance_properties(instance->root, placeholder, debug_file);
-    
-    // Mark elements appropriately
-    placeholder->is_placeholder = true;
-    instance->root->is_component_instance = true;
-    instance->root->component_instance = instance;
-    
-    // Add to context's instance list
-    instance->next = ctx->instances;
-    ctx->instances = instance;
-    
-    if (debug_file) {
-        fprintf(debug_file, "  Successfully instantiated component\n");
-    }
-    
-    return instance;
-}
-
-bool process_component_instances(RenderContext* ctx, FILE* debug_file) {
+bool expand_all_components(RenderContext* ctx, FILE* debug_file) {
     if (!ctx || !ctx->doc) return false;
     
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Processing component instances...\n");
-    }
+    fprintf(debug_file, "INFO: Expanding components...\n");
     
-    // Iterate through original elements looking for component placeholders
+    // Find all component placeholders
     for (int i = 0; i < ctx->original_element_count; i++) {
         RenderElement* element = &ctx->elements[i];
         
@@ -458,37 +392,299 @@ bool process_component_instances(RenderContext* ctx, FILE* debug_file) {
             if (find_component_name_property(element->custom_properties, element->custom_prop_count,
                                            ctx->doc->strings, &component_name_index)) {
                 
-                if (debug_file) {
-                    fprintf(debug_file, "  Found component placeholder: Element %d -> Component name index %d\n", 
-                            i, component_name_index);
-                }
-                
-                // Find matching component definition
-                bool found_definition = false;
-                for (uint8_t def_idx = 0; def_idx < ctx->doc->header.component_def_count; def_idx++) {
-                    KrbComponentDefinition* comp_def = &ctx->doc->component_defs[def_idx];
-                    if (comp_def->name_index == component_name_index) {
-                        // Instantiate this component
-                        ComponentInstance* instance = instantiate_component(ctx, element, def_idx, debug_file);
-                        if (instance) {
-                            found_definition = true;
-                            break;
-                        }
-                    }
-                }
-                
-                if (!found_definition) {
-                    if (debug_file) fprintf(debug_file, "ERROR: No component definition found for name index %d\n", component_name_index);
+                // Find and expand the component
+                if (!expand_component_for_element(ctx, element, component_name_index, debug_file)) {
+                    fprintf(debug_file, "ERROR: Failed to expand component for element %d\n", i);
+                    return false;
                 }
             }
         }
     }
     
-    if (debug_file) {
-        fprintf(debug_file, "INFO: Finished processing component instances\n");
+    fprintf(debug_file, "INFO: Component expansion complete\n");
+    return true;
+}
+
+bool expand_component_for_element(RenderContext* ctx, RenderElement* element, uint8_t component_name_index, FILE* debug_file) {
+    if (!ctx || !element || !ctx->doc) return false;
+    
+    // For now, mark as placeholder and create a simple component instance
+    element->is_placeholder = true;
+    
+    // Find the component definition
+    KrbComponentDefinition* comp_def = NULL;
+    for (uint8_t i = 0; i < ctx->doc->header.component_def_count; i++) {
+        if (ctx->doc->component_defs[i].name_index == component_name_index) {
+            comp_def = &ctx->doc->component_defs[i];
+            break;
+        }
     }
     
+    if (!comp_def) {
+        fprintf(debug_file, "ERROR: Component definition not found for name index %d\n", component_name_index);
+        return false;
+    }
+    
+    // Create a simple component instance (simplified for now)
+    ComponentInstance* instance = calloc(1, sizeof(ComponentInstance));
+    if (!instance) return false;
+    
+    instance->definition_index = comp_def - ctx->doc->component_defs;
+    instance->placeholder = element;
+    
+    // Create a simple root element for the component
+    if (ctx->element_count >= MAX_ELEMENTS) {
+        free(instance);
+        return false;
+    }
+    
+    RenderElement* component_root = &ctx->elements[ctx->element_count++];
+    initialize_render_element(component_root, &comp_def->root_template_header, -1, ctx);
+    component_root->is_component_instance = true;
+    component_root->component_instance = instance;
+    component_root->parent = element->parent;
+    
+    // Copy properties from placeholder to component root
+    component_root->header.id = element->header.id;
+    component_root->header.pos_x = element->header.pos_x;
+    component_root->header.pos_y = element->header.pos_y;
+    component_root->header.width = element->header.width;
+    component_root->header.height = element->header.height;
+    component_root->header.layout = element->header.layout;
+    component_root->header.style_id = element->header.style_id;
+    
+    instance->root = component_root;
+    element->children[0] = component_root;
+    element->child_count = 1;
+    
+    // Add to context's instance list
+    instance->next = ctx->instances;
+    ctx->instances = instance;
+    
+    fprintf(debug_file, "INFO: Expanded component for element %d (component name index %d)\n", 
+            element->original_index, component_name_index);
+    
     return true;
+}
+
+void apply_property_inheritance(RenderContext* ctx, FILE* debug_file) {
+    if (!ctx || ctx->root_count == 0) return;
+    
+    fprintf(debug_file, "INFO: Applying property inheritance...\n");
+    
+    // Start inheritance from each root
+    for (int i = 0; i < ctx->root_count; i++) {
+        if (ctx->roots[i]) {
+            inherit_properties_recursive(ctx->roots[i], ctx, debug_file);
+        }
+    }
+    
+    fprintf(debug_file, "INFO: Property inheritance complete\n");
+}
+void inherit_properties_recursive(RenderElement* el, RenderContext* ctx, FILE* debug_file) {
+    if (!el) {
+        if (debug_file) {
+            fprintf(debug_file, "WARNING: inherit_properties_recursive called with NULL element\n");
+        }
+        return;
+    }
+    
+    if (debug_file) {
+        fprintf(debug_file, "INHERIT: Processing element %d (type=0x%02X)\n", 
+                el->original_index, el->header.type);
+    }
+    
+    // Set defaults based on element type and parent
+    Color default_fg = {255, 255, 255, 255}; // White default
+    float default_font_size = BASE_FONT_SIZE;
+    int default_text_alignment = 1; // Center
+    
+    // For text elements, be more aggressive with defaults
+    if (el->header.type == ELEM_TYPE_TEXT) {
+        default_fg = (Color){255, 255, 0, 255}; // Force yellow for visibility
+        default_font_size = BASE_FONT_SIZE;
+        default_text_alignment = 1; // Center
+        
+        if (debug_file) {
+            fprintf(debug_file, "  TEXT ELEMENT BEFORE: fg=(%d,%d,%d,%d) font_size=%.1f align=%d\n",
+                    el->fg_color.r, el->fg_color.g, el->fg_color.b, el->fg_color.a,
+                    el->font_size, el->text_alignment);
+        }
+    }
+    
+    // Inherit or set foreground color
+    if (el->fg_color.a == 0) {
+        if (el->parent && el->parent->fg_color.a > 0) {
+            el->fg_color = el->parent->fg_color;
+            if (debug_file) {
+                fprintf(debug_file, "  INHERITED fg_color from parent: (%d,%d,%d,%d)\n",
+                        el->fg_color.r, el->fg_color.g, el->fg_color.b, el->fg_color.a);
+            }
+        } else {
+            el->fg_color = (el->header.type == ELEM_TYPE_TEXT) ? default_fg : ctx->default_fg;
+            if (debug_file) {
+                fprintf(debug_file, "  SET DEFAULT fg_color: (%d,%d,%d,%d)\n",
+                        el->fg_color.r, el->fg_color.g, el->fg_color.b, el->fg_color.a);
+            }
+        }
+    } else {
+        if (debug_file) {
+            fprintf(debug_file, "  KEPT EXISTING fg_color: (%d,%d,%d,%d)\n",
+                    el->fg_color.r, el->fg_color.g, el->fg_color.b, el->fg_color.a);
+        }
+    }
+    
+    // Inherit or set font size
+    if (el->font_size <= 0.0f) {
+        if (el->parent && el->parent->font_size > 0.0f) {
+            el->font_size = el->parent->font_size;
+            if (debug_file) {
+                fprintf(debug_file, "  INHERITED font_size from parent: %.1f\n", el->font_size);
+            }
+        } else {
+            el->font_size = default_font_size;
+            if (debug_file) {
+                fprintf(debug_file, "  SET DEFAULT font_size: %.1f\n", el->font_size);
+            }
+        }
+    } else {
+        if (debug_file) {
+            fprintf(debug_file, "  KEPT EXISTING font_size: %.1f\n", el->font_size);
+        }
+    }
+    
+    // Inherit or set text alignment
+    if (el->text_alignment == 0) {
+        if (el->parent && el->parent->text_alignment > 0) {
+            el->text_alignment = el->parent->text_alignment;
+            if (debug_file) {
+                fprintf(debug_file, "  INHERITED text_alignment from parent: %d\n", el->text_alignment);
+            }
+        } else {
+            el->text_alignment = (el->header.type == ELEM_TYPE_TEXT) ? default_text_alignment : 0;
+            if (debug_file) {
+                fprintf(debug_file, "  SET DEFAULT text_alignment: %d\n", el->text_alignment);
+            }
+        }
+    } else {
+        if (debug_file) {
+            fprintf(debug_file, "  KEPT EXISTING text_alignment: %d\n", el->text_alignment);
+        }
+    }
+    
+    // Special validation for text elements
+    if (el->header.type == ELEM_TYPE_TEXT) {
+        // Ensure minimum visible values
+        if (el->fg_color.a < 50) {
+            el->fg_color.a = 255;
+            if (debug_file) {
+                fprintf(debug_file, "  FIXED: Alpha was too low, set to 255\n");
+            }
+        }
+        
+        if (el->font_size < 8.0f) {
+            el->font_size = BASE_FONT_SIZE;
+            if (debug_file) {
+                fprintf(debug_file, "  FIXED: Font size was too small, set to %.1f\n", el->font_size);
+            }
+        }
+        
+        if (debug_file) {
+            fprintf(debug_file, "  TEXT ELEMENT FINAL: fg=(%d,%d,%d,%d) font_size=%.1f align=%d\n",
+                    el->fg_color.r, el->fg_color.g, el->fg_color.b, el->fg_color.a,
+                    el->font_size, el->text_alignment);
+        }
+    }
+    
+    // Validate that we have reasonable values
+    if (debug_file) {
+        if (el->fg_color.a == 0) {
+            fprintf(debug_file, "  ERROR: Element still has transparent color after inheritance!\n");
+        }
+        if (el->font_size <= 0.0f) {
+            fprintf(debug_file, "  ERROR: Element still has invalid font size after inheritance!\n");
+        }
+    }
+    
+    // Recursively process children
+    for (int i = 0; i < el->child_count; i++) {
+        if (el->children[i]) {
+            inherit_properties_recursive(el->children[i], ctx, debug_file);
+        } else {
+            if (debug_file) {
+                fprintf(debug_file, "  WARNING: Child %d is NULL\n", i);
+            }
+        }
+    }
+    
+    if (debug_file) {
+        fprintf(debug_file, "INHERIT: Finished processing element %d\n", el->original_index);
+    }
+}
+
+void find_root_elements(RenderContext* ctx, FILE* debug_file) {
+    if (!ctx) return;
+    
+    ctx->root_count = 0;
+    
+    for (int i = 0; i < ctx->element_count; i++) {
+        RenderElement* el = &ctx->elements[i];
+        if (!el->parent && !el->is_placeholder && ctx->root_count < MAX_ELEMENTS) {
+            ctx->roots[ctx->root_count++] = el;
+        }
+    }
+    
+    fprintf(debug_file, "INFO: Found %d root elements\n", ctx->root_count);
+}
+
+void load_all_textures(RenderContext* ctx, const char* base_dir, FILE* debug_file) {
+    if (!ctx || !ctx->doc) return;
+    
+    fprintf(debug_file, "INFO: Loading textures from base dir: %s\n", base_dir);
+    
+    for (int i = 0; i < ctx->element_count; i++) {
+        RenderElement* el = &ctx->elements[i];
+        if (el->header.type == ELEM_TYPE_IMAGE && el->resource_index != INVALID_RESOURCE_INDEX) {
+            if (el->resource_index >= ctx->doc->header.resource_count || !ctx->doc->resources) { 
+                continue; 
+            }
+            
+            KrbResource* res = &ctx->doc->resources[el->resource_index];
+            if (res->format == RES_FORMAT_EXTERNAL) {
+                if (res->data_string_index >= ctx->doc->header.string_count || !ctx->doc->strings || !ctx->doc->strings[res->data_string_index]) { 
+                    continue; 
+                }
+                
+                const char* relative_path = ctx->doc->strings[res->data_string_index];
+                char full_path[512];
+                snprintf(full_path, sizeof(full_path), "%s/%s", base_dir, relative_path);
+                
+                el->texture = LoadTexture(full_path);
+                if (IsTextureReady(el->texture)) {
+                    el->texture_loaded = true;
+                    fprintf(debug_file, "  Loaded texture: %s\n", full_path);
+                } else {
+                    fprintf(debug_file, "  Failed to load texture: %s\n", full_path);
+                    el->texture_loaded = false;
+                }
+            }
+        }
+    }
+}
+
+void handle_window_resize(RenderContext* ctx) {
+    if (!ctx) return;
+    
+    if (ctx->resizable && IsWindowResized()) { 
+        ctx->window_width = GetScreenWidth(); 
+        ctx->window_height = GetScreenHeight(); 
+        
+        // Update app element size if it exists
+        if (ctx->element_count > 0 && ctx->elements[0].header.type == ELEM_TYPE_APP) {
+            ctx->elements[0].render_w = ctx->window_width; 
+            ctx->elements[0].render_h = ctx->window_height; 
+        }
+    }
 }
 
 RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file) {
@@ -499,11 +695,12 @@ RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file) {
     
     ctx->doc = doc;
     ctx->original_element_count = doc->header.element_count;
-    ctx->element_count = doc->header.element_count; // Will grow as components are instantiated
+    ctx->element_count = doc->header.element_count;
     ctx->instances = NULL;
+    ctx->root_count = 0;
     
-    // Allocate initial elements array
-    ctx->elements = calloc(doc->header.element_count, sizeof(RenderElement));
+    // Allocate elements array with extra space for component expansion
+    ctx->elements = calloc(MAX_ELEMENTS, sizeof(RenderElement));
     if (!ctx->elements) {
         free(ctx);
         return NULL;
@@ -531,27 +728,21 @@ void free_render_context(RenderContext* ctx) {
     
     // Free element text strings and custom properties
     for (int i = 0; i < ctx->element_count; i++) {
-        // Only free text if it was allocated
         if (ctx->elements[i].text) {
             free(ctx->elements[i].text);
             ctx->elements[i].text = NULL;
         }
         
-        // Only free custom properties if they were allocated
         if (ctx->elements[i].custom_properties) {
             free(ctx->elements[i].custom_properties);
             ctx->elements[i].custom_properties = NULL;
         }
     }
     
-    // Free component instances (but NOT their elements!)
+    // Free component instances
     ComponentInstance* instance = ctx->instances;
     while (instance) {
         ComponentInstance* next = instance->next;
-        
-        // IMPORTANT: Don't free instance->root or instance->placeholder
-        // They are part of the elements array and will be freed separately
-        
         free(instance);
         instance = next;
     }
@@ -567,6 +758,46 @@ void free_render_context(RenderContext* ctx) {
     // Free the context itself
     free(ctx);
 }
+void apply_contextual_defaults(RenderElement* el, RenderContext* ctx, FILE* debug_file) {
+    if (!el || !ctx) return;
+    
+    if (debug_file) {
+        fprintf(debug_file, "CONTEXTUAL DEFAULTS: Element %d (type=0x%02X)\n", 
+                el->original_index, el->header.type);
+    }
+    
+    // Check border color and width relationship (per Section 3 of spec)
+    bool has_border_color = (el->border_color.a > 0);
+    bool has_border_width = (el->border_widths[0] > 0 || el->border_widths[1] > 0 || 
+                            el->border_widths[2] > 0 || el->border_widths[3] > 0);
+    
+    // Rule 1: If BorderColor is set and all BorderWidths are 0, default BorderWidths to 1
+    if (has_border_color && !has_border_width) {
+        memset(el->border_widths, 1, 4); // Set all sides to 1px
+        if (debug_file) {
+            fprintf(debug_file, "  -> Applied contextual default: border_width=1 (because border_color is set)\n");
+        }
+    }
+    
+    // Rule 2: If any BorderWidths > 0 and BorderColor is transparent, default to DefaultBorderColor
+    if (has_border_width && !has_border_color) {
+        el->border_color = ctx->default_border;
+        if (debug_file) {
+            fprintf(debug_file, "  -> Applied contextual default: border_color=default (because border_width > 0)\n");
+        }
+    }
+    
+    if (debug_file) {
+        fprintf(debug_file, "  FINAL BORDER STATE: color=(%d,%d,%d,%d) widths=[%d,%d,%d,%d]\n",
+                el->border_color.r, el->border_color.g, el->border_color.b, el->border_color.a,
+                el->border_widths[0], el->border_widths[1], el->border_widths[2], el->border_widths[3]);
+    }
+}
+
+void reset_cursor_for_frame(void) {
+    g_cursor_set_this_frame = false;
+    g_highest_cursor_priority = -1;
+}
 
 void render_element(RenderElement* el, int parent_content_x, int parent_content_y, int parent_content_width, int parent_content_height, float scale_factor, FILE* debug_file) {
     if (!el) return;
@@ -575,6 +806,14 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
     if (el->is_placeholder) {
         if (debug_file) {
             fprintf(debug_file, "DEBUG RENDER: Skipping placeholder element %d\n", el->original_index);
+        }
+        return;
+    }
+
+    // Skip rendering invisible elements
+    if (!el->is_visible) {
+        if (debug_file) {
+            fprintf(debug_file, "DEBUG RENDER: Skipping invisible element %d\n", el->original_index);
         }
         return;
     }
@@ -596,18 +835,29 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
         // --- Calculate Intrinsic Size ---
         intrinsic_w = (int)(el->header.width * scale_factor);
         intrinsic_h = (int)(el->header.height * scale_factor);
-
+        
         if (el->header.type == ELEM_TYPE_TEXT && el->text) {
-            int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
-            int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, font_size) : 0;
-            if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(8 * scale_factor);
-            if (el->header.height == 0) intrinsic_h = font_size + (int)(8 * scale_factor);
-        }
+                // CRITICAL FIX: Ensure font size is never 0
+                float font_size = (el->font_size > 0) ? el->font_size : BASE_FONT_SIZE;
+                int scaled_font_size = (int)(font_size * scale_factor);
+                if (scaled_font_size < 1) scaled_font_size = 1;
+                int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, scaled_font_size) : 0;
+                if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(8 * scale_factor);
+                if (el->header.height == 0) intrinsic_h = scaled_font_size + (int)(8 * scale_factor);
+                
+                // Debug output
+                if (debug_file) {
+                    fprintf(debug_file, "  TEXT SIZE CALC: font_size=%.1f scaled=%d measured=%d intrinsic=%dx%d\n",
+                            font_size, scaled_font_size, text_width_measured, intrinsic_w, intrinsic_h);
+                }
+            }
         else if (el->header.type == ELEM_TYPE_BUTTON && el->text) {
-            int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
-            int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, font_size) : 0;
-            if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(16 * scale_factor); // More padding for buttons
-            if (el->header.height == 0) intrinsic_h = font_size + (int)(16 * scale_factor);
+            float font_size = (el->font_size > 0) ? el->font_size : BASE_FONT_SIZE;
+            int scaled_font_size = (int)(font_size * scale_factor);
+            if (scaled_font_size < 1) scaled_font_size = 1;
+            int text_width_measured = (el->text[0] != '\0') ? MeasureText(el->text, scaled_font_size) : 0;
+            if (el->header.width == 0) intrinsic_w = text_width_measured + (int)(16 * scale_factor);
+            if (el->header.height == 0) intrinsic_h = scaled_font_size + (int)(16 * scale_factor);
         }
         else if (el->header.type == ELEM_TYPE_IMAGE && el->texture_loaded) {
             if (el->header.width == 0) intrinsic_w = (int)(el->texture.width * scale_factor);
@@ -653,10 +903,44 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
     el->render_w = final_w;
     el->render_h = final_h;
 
-    // --- Apply Styling ---
+    // --- Check for mouse hover (for interactive elements) ---
+    bool is_hovered = false;
+    if (el->is_interactive) {
+        Vector2 mouse_pos = GetMousePosition();
+        is_hovered = (mouse_pos.x >= el->render_x && mouse_pos.x < el->render_x + el->render_w &&
+                     mouse_pos.y >= el->render_y && mouse_pos.y < el->render_y + el->render_h);
+        
+        // Set cursor for interactive elements with priority system
+        if (is_hovered) {
+            int cursor_priority = 100; // Interactive elements get high priority
+            
+            // Only set cursor if this element has higher or equal priority to current
+            if (!g_cursor_set_this_frame || cursor_priority >= g_highest_cursor_priority) {
+                SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+                g_cursor_set_this_frame = true;
+                g_highest_cursor_priority = cursor_priority;
+            }
+        }
+    }
+
+    // --- Apply Styling (with hover effects) ---
     Color bg_color = el->bg_color;
     Color fg_color = el->fg_color;
     Color border_color = el->border_color;
+    
+    // Apply hover effects for buttons
+    if (el->header.type == ELEM_TYPE_BUTTON && is_hovered) {
+        // Brighten background on hover
+        bg_color.r = (bg_color.r < 200) ? bg_color.r + 55 : 255;
+        bg_color.g = (bg_color.g < 200) ? bg_color.g + 55 : 255;
+        bg_color.b = (bg_color.b < 200) ? bg_color.b + 55 : 255;
+        
+        // Brighten border on hover
+        border_color.r = (border_color.r < 200) ? border_color.r + 55 : 255;
+        border_color.g = (border_color.g < 200) ? border_color.g + 255 : 255;
+        border_color.b = (border_color.b < 200) ? border_color.b + 55 : 255;
+    }
+
     int top_bw = (int)(el->border_widths[0] * scale_factor);
     int right_bw = (int)(el->border_widths[1] * scale_factor);
     int bottom_bw = (int)(el->border_widths[2] * scale_factor);
@@ -674,19 +958,20 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
 
     // Debug Logging
     if (debug_file) {
-        fprintf(debug_file, "DEBUG RENDER: Elem %d (Type=0x%02X) @(%d,%d) Size=%dx%d Borders=[%d,%d,%d,%d] Layout=0x%02X ResIdx=%d\n",
+        fprintf(debug_file, "DEBUG RENDER: Elem %d (Type=0x%02X) @(%d,%d) Size=%dx%d Borders=[%d,%d,%d,%d] Layout=0x%02X ResIdx=%d Visible=%s Hovered=%s\n",
                 el->original_index, el->header.type, el->render_x, el->render_y, el->render_w, el->render_h,
-                top_bw, right_bw, bottom_bw, left_bw, el->header.layout, el->resource_index);
+                top_bw, right_bw, bottom_bw, left_bw, el->header.layout, el->resource_index,
+                el->is_visible ? "true" : "false", is_hovered ? "true" : "false");
     }
 
-    // --- Draw Background (unless it's just text) ---
+    // --- Draw Background ---
     bool draw_background = (el->header.type != ELEM_TYPE_TEXT);
-    if (draw_background && el->render_w > 0 && el->render_h > 0) {
+    if (draw_background && el->render_w > 0 && el->render_h > 0 && bg_color.a > 0) {
         DrawRectangle(el->render_x, el->render_y, el->render_w, el->render_h, bg_color);
     }
 
     // --- Draw Borders ---
-    if (el->render_w > 0 && el->render_h > 0) {
+    if (el->render_w > 0 && el->render_h > 0 && border_color.a > 0) {
         if (top_bw > 0) DrawRectangle(el->render_x, el->render_y, el->render_w, top_bw, border_color);
         if (bottom_bw > 0) DrawRectangle(el->render_x, el->render_y + el->render_h - bottom_bw, el->render_w, bottom_bw, border_color);
         int side_border_y = el->render_y + top_bw;
@@ -710,20 +995,28 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
 
         // Draw Text
         if ((el->header.type == ELEM_TYPE_TEXT || el->header.type == ELEM_TYPE_BUTTON) && el->text && el->text[0] != '\0') {
-            int font_size = (int)(BASE_FONT_SIZE * scale_factor); if (font_size < 1) font_size = 1;
-            int text_width_measured = MeasureText(el->text, font_size);
+            float font_size = (el->font_size > 0) ? el->font_size : BASE_FONT_SIZE;
+            int scaled_font_size = (int)(font_size * scale_factor);
+            if (scaled_font_size < 1) scaled_font_size = 1;
+            
+            int text_width_measured = MeasureText(el->text, scaled_font_size);
             int text_draw_x = content_x;
             if (el->text_alignment == 1) text_draw_x = content_x + (content_width - text_width_measured) / 2; // Center
             else if (el->text_alignment == 2) text_draw_x = content_x + content_width - text_width_measured;   // End/Right
-            int text_draw_y = content_y + (content_height - font_size) / 2; // Vertical center
+            int text_draw_y = content_y + (content_height - scaled_font_size) / 2; // Vertical center
 
             if (text_draw_x < content_x) text_draw_x = content_x; // Clamp
             if (text_draw_y < content_y) text_draw_y = content_y; // Clamp
 
-            if (debug_file) fprintf(debug_file, "  -> Drawing Text (Type %02X) '%s' (align=%d) at (%d,%d) within content (%d,%d %dx%d)\n", 
-                                   el->header.type, el->text, el->text_alignment, text_draw_x, text_draw_y, 
-                                   content_x, content_y, content_width, content_height);
-            DrawText(el->text, text_draw_x, text_draw_y, font_size, fg_color);
+            // Force visible color for text if it's transparent or invisible
+            if (fg_color.a == 0 || (fg_color.r == 0 && fg_color.g == 0 && fg_color.b == 0)) {
+                fg_color = (Color){255, 255, 255, 255}; // Force white
+            }
+
+            if (debug_file) fprintf(debug_file, "  -> Drawing Text (Type %02X) '%s' (align=%d) with color (%d,%d,%d,%d) at (%d,%d) font_size=%d within content (%d,%d %dx%d)\n", 
+                                   el->header.type, el->text, el->text_alignment, fg_color.r, fg_color.g, fg_color.b, fg_color.a,
+                                   text_draw_x, text_draw_y, scaled_font_size, content_x, content_y, content_width, content_height);
+            DrawText(el->text, text_draw_x, text_draw_y, scaled_font_size, fg_color);
         }
         
         // Draw Image
@@ -739,7 +1032,15 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
         EndScissorMode();
     }
 
-    // --- Layout and Render Children ---
+    // --- Handle Click Events ---
+    if (el->header.type == ELEM_TYPE_BUTTON && is_hovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (debug_file) {
+            fprintf(debug_file, "BUTTON CLICKED: Element %d\n", el->original_index);
+        }
+        // You can add onClick handler logic here
+    }
+
+    // [Rest of the function remains the same - layout and render children section]
     if (el->child_count > 0 && content_width > 0 && content_height > 0) {
         uint8_t direction = el->header.layout & LAYOUT_DIRECTION_MASK;
         uint8_t alignment = (el->header.layout & LAYOUT_ALIGNMENT_MASK) >> 2;
@@ -758,7 +1059,7 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
             RenderElement* child = el->children[i];
             if (!child) continue;
             
-            if (child->is_placeholder) {
+            if (child->is_placeholder || !child->is_visible) {
                 child_sizes[i][0] = 0; 
                 child_sizes[i][1] = 0;
                 continue;
@@ -783,13 +1084,15 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
                 child_h = (int)(child->header.height * scale_factor);
                 
                 if (child->header.type == ELEM_TYPE_TEXT && child->text) {
-                    int fs = (int)(BASE_FONT_SIZE * scale_factor); if(fs<1)fs=1;
+                    float font_size = (child->font_size > 0) ? child->font_size : BASE_FONT_SIZE;
+                    int fs = (int)(font_size * scale_factor); if(fs<1)fs=1;
                     int tw = (child->text[0]!='\0') ? MeasureText(child->text, fs):0;
                     if (child->header.width == 0) child_w = tw + (int)(8 * scale_factor);
                     if (child->header.height == 0) child_h = fs + (int)(8 * scale_factor);
                 }
                 else if (child->header.type == ELEM_TYPE_BUTTON && child->text) {
-                    int fs = (int)(BASE_FONT_SIZE * scale_factor); if(fs<1)fs=1;
+                    float font_size = (child->font_size > 0) ? child->font_size : BASE_FONT_SIZE;
+                    int fs = (int)(font_size * scale_factor); if(fs<1)fs=1;
                     int tw = (child->text[0]!='\0') ? MeasureText(child->text, fs):0;
                     if (child->header.width == 0) child_w = tw + (int)(16 * scale_factor);
                     if (child->header.height == 0) child_h = fs + (int)(16 * scale_factor);
@@ -850,7 +1153,7 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
             RenderElement* child = el->children[i];
             if (!child) continue;
             
-            if (child->is_placeholder) continue;
+            if (child->is_placeholder || !child->is_visible) continue;
 
             bool child_is_absolute = (child->header.layout & LAYOUT_ABSOLUTE_BIT);
             bool child_has_pos = (child->header.pos_x != 0 || child->header.pos_y != 0);
@@ -874,11 +1177,8 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
                     else child_final_x = content_x;
                 }
 
-                // Only update position if child doesn't have pre-calculated position
-                if (!(child->render_w > 0 && child->render_h > 0)) {
-                    child->render_x = child_final_x;
-                    child->render_y = child_final_y;
-                }
+                child->render_x = child_final_x;
+                child->render_y = child_final_y;
 
                 render_element(child, content_x, content_y, content_width, content_height, scale_factor, debug_file);
 
@@ -900,6 +1200,7 @@ void render_element(RenderElement* el, int parent_content_x, int parent_content_
 
     if (debug_file) fprintf(debug_file, "  Finished Render Elem %d\n", el->original_index);
 }
+
 #ifdef BUILD_STANDALONE_RENDERER
 
 int main(int argc, char* argv[]) {
@@ -913,8 +1214,11 @@ int main(int argc, char* argv[]) {
     FILE* debug_file = fopen("krb_render_debug_standalone.log", "w");
     if (!debug_file) { debug_file = stderr; fprintf(stderr, "Warn: No debug log.\n"); }
     setvbuf(debug_file, NULL, _IOLBF, BUFSIZ);
-    fprintf(debug_file, "INFO: Opening KRB: %s\n", krb_file_path);
-    fprintf(debug_file, "INFO: Base Directory: %s\n", krb_dir);
+    
+    // --- Initialize Custom Components System ---
+    init_custom_components();
+
+    // --- Read KRB Document ---
     FILE* file = fopen(krb_file_path, "rb");
     if (!file) { 
         fprintf(stderr, "ERROR: Cannot open '%s': %s\n", krb_file_path, strerror(errno)); 
@@ -923,9 +1227,7 @@ int main(int argc, char* argv[]) {
         return 1; 
     }
 
-    // --- Parsing ---
     KrbDocument doc = {0};
-    fprintf(debug_file, "INFO: Reading KRB document...\n");
     if (!krb_read_document(file, &doc)) {
         fprintf(stderr, "ERROR: Failed parse KRB '%s'\n", krb_file_path);
         fclose(file); krb_free_document(&doc); free(krb_file_path_copy); 
@@ -933,29 +1235,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     fclose(file);
-    fprintf(debug_file, "INFO: Parsed KRB OK - Ver=%u.%u Elements=%u ComponentDefs=%u Styles=%u Strings=%u Resources=%u Flags=0x%04X\n",
-            doc.version_major, doc.version_minor, doc.header.element_count, 
-            doc.header.component_def_count, doc.header.style_count, 
-            doc.header.string_count, doc.header.resource_count, doc.header.flags);
-    
-    if (doc.header.element_count == 0) {
-        fprintf(debug_file, "WARN: No elements. Exiting.\n");
-        krb_free_document(&doc); free(krb_file_path_copy); 
-        if (debug_file != stderr) fclose(debug_file);
-        return 0;
-    }
-    
-    if (doc.version_major != KRB_SPEC_VERSION_MAJOR || doc.version_minor != KRB_SPEC_VERSION_MINOR) {
-         fprintf(stderr, "WARN: KRB version mismatch! Doc is %d.%d, Reader expects %d.%d. Parsing continues...\n",
-                 doc.version_major, doc.version_minor, KRB_SPEC_VERSION_MAJOR, KRB_SPEC_VERSION_MINOR);
-         fprintf(debug_file, "WARN: KRB version mismatch! Doc is %d.%d, Reader expects %d.%d.\n",
-                 doc.version_major, doc.version_minor, KRB_SPEC_VERSION_MAJOR, KRB_SPEC_VERSION_MINOR);
-     }
-
-    // --- Initialize Custom Components System ---
-    init_custom_components();
-
-    fprintf(debug_file, "INFO: Initialized custom components system\n");
 
     // --- Create Render Context ---
     RenderContext* ctx = create_render_context(&doc, debug_file);
@@ -966,228 +1245,57 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // --- Process App & Defaults ---
+    // --- Process App Element ---
     RenderElement* app_element = NULL;
-
     if ((doc.header.flags & FLAG_HAS_APP) && doc.header.element_count > 0 && doc.elements[0].type == ELEM_TYPE_APP) {
         app_element = &ctx->elements[0];
-        app_element->header = doc.elements[0]; 
-        app_element->original_index = 0; 
-        app_element->text = NULL;
-        app_element->parent = NULL; 
-        app_element->child_count = 0; 
-        app_element->texture_loaded = false;
-        app_element->resource_index = INVALID_RESOURCE_INDEX;
-        app_element->is_placeholder = false;
-        app_element->is_component_instance = false;
-        app_element->component_instance = NULL;
-        app_element->custom_properties = NULL;
-        app_element->custom_prop_count = 0;
+        // Initialize App element
+        initialize_render_element(app_element, &doc.elements[0], 0, ctx);
+        app_element->is_visible = true; // App is always visible
         
-        for(int k=0; k<MAX_ELEMENTS; ++k) app_element->children[k] = NULL; 
-        app_element->is_interactive = false;
-        
-        fprintf(debug_file, "INFO: Processing App Elem 0 (StyleID=%d, Props=%d)\n", 
-                app_element->header.style_id, app_element->header.property_count);
-        
-        // Apply App Style
-        if (app_element->header.style_id > 0 && app_element->header.style_id <= doc.header.style_count && doc.styles) {
-             int style_idx = app_element->header.style_id - 1; 
-             KrbStyle* app_style = &doc.styles[style_idx];
-             fprintf(debug_file, "  Applying App Style %d\n", style_idx);
-             for(int j=0; j<app_style->property_count; ++j) { 
-                 apply_property_to_element(app_element, &app_style->properties[j], &doc, debug_file);
-             }
-        } else if (app_element->header.style_id > 0) { 
-            fprintf(debug_file, "WARN: App Style ID %d invalid.\n", app_element->header.style_id); 
-        }
-        
-        app_element->bg_color = ctx->default_bg; 
-        app_element->fg_color = ctx->default_fg; 
-        app_element->border_color = ctx->default_border; 
-        memset(app_element->border_widths, 0, 4);
-        
-        // Apply App Direct Properties
-        fprintf(debug_file, "  Applying App Direct Props\n");
-        if (doc.properties && doc.properties[0]) {
-            for (int j = 0; j < app_element->header.property_count; j++) { 
-                KrbProperty* prop = &doc.properties[0][j]; 
-                if (!prop || !prop->value) continue; 
-                
-                if (prop->property_id == PROP_ID_WINDOW_WIDTH && prop->value_type == VAL_TYPE_SHORT && prop->size == 2) { 
-                    ctx->window_width = krb_read_u16_le(prop->value); 
-                    app_element->header.width = ctx->window_width; 
-                } else if (prop->property_id == PROP_ID_WINDOW_HEIGHT && prop->value_type == VAL_TYPE_SHORT && prop->size == 2) { 
-                    ctx->window_height = krb_read_u16_le(prop->value); 
-                    app_element->header.height = ctx->window_height; 
-                } else if (prop->property_id == PROP_ID_WINDOW_TITLE && prop->value_type == VAL_TYPE_STRING && prop->size == 1) { 
-                    uint8_t idx = *(uint8_t*)prop->value; 
-                    if (idx < doc.header.string_count && doc.strings[idx]) { 
-                        free(ctx->window_title); 
-                        ctx->window_title = strdup(doc.strings[idx]); 
-                    } 
-                } else if (prop->property_id == PROP_ID_RESIZABLE && prop->value_type == VAL_TYPE_BYTE && prop->size == 1) { 
-                    ctx->resizable = *(uint8_t*)prop->value; 
-                } else if (prop->property_id == PROP_ID_SCALE_FACTOR && prop->value_type == VAL_TYPE_PERCENTAGE && prop->size == 2) { 
-                    uint16_t sf = krb_read_u16_le(prop->value); 
-                    ctx->scale_factor = sf / 256.0f; 
-                } else {
-                    apply_property_to_element(app_element, prop, &doc, debug_file);
-                }
-            }
-        }
-        app_element->render_w = ctx->window_width; 
-        app_element->render_h = ctx->window_height; 
-        app_element->render_x = 0; 
-        app_element->render_y = 0;
+        // Apply App properties for window config
+        process_app_element_properties(app_element, &doc, ctx, debug_file);
         
         fprintf(debug_file, "INFO: Processed App. Window:%dx%d Title:'%s' Scale:%.2f\n", 
                 ctx->window_width, ctx->window_height, 
                 ctx->window_title ? ctx->window_title : "(None)", ctx->scale_factor);
-    } else { 
-        fprintf(debug_file, "WARN: No App element. Using defaults.\n"); 
-        ctx->window_title = strdup("KRB Renderer (No App)"); 
     }
 
-    // --- Populate & Process Remaining RenderElements ---
+    // --- Initialize All Elements ---
     for (int i = 0; i < doc.header.element_count; i++) {
-        if (app_element && i == 0) continue;
+        if (app_element && i == 0) continue; // Skip app, already processed
         
-        RenderElement* current_render_el = &ctx->elements[i];
-        current_render_el->header = doc.elements[i]; 
-        current_render_el->original_index = i; 
-        current_render_el->text = NULL;
-        current_render_el->bg_color = ctx->default_bg; 
-        current_render_el->fg_color = ctx->default_fg; 
-        current_render_el->border_color = ctx->default_border;
-        memset(current_render_el->border_widths, 0, 4); 
-        current_render_el->text_alignment = 0; 
-        current_render_el->parent = NULL;
-        current_render_el->child_count = 0; 
-        current_render_el->texture_loaded = false;
-        current_render_el->resource_index = INVALID_RESOURCE_INDEX;
-        current_render_el->is_placeholder = false;
-        current_render_el->is_component_instance = false;
-        current_render_el->component_instance = NULL;
-        current_render_el->custom_properties = NULL;
-        current_render_el->custom_prop_count = 0;
+        RenderElement* el = &ctx->elements[i];
+        initialize_render_element(el, &doc.elements[i], i, ctx);
         
-        for(int k=0; k<MAX_ELEMENTS; ++k) current_render_el->children[k] = NULL;
-        current_render_el->render_x = 0; 
-        current_render_el->render_y = 0; 
-        current_render_el->render_w = 0; 
-        current_render_el->render_h = 0;
-        current_render_el->is_interactive = (current_render_el->header.type == ELEM_TYPE_BUTTON || current_render_el->header.type == ELEM_TYPE_INPUT);
+        // Step 2 & 3: Apply styles and properties (existing code)
+        apply_element_styling(el, &doc, ctx, debug_file);
         
-        // Copy custom properties if present
-        if (doc.elements[i].custom_prop_count > 0 && doc.custom_properties && doc.custom_properties[i]) {
-            current_render_el->custom_prop_count = doc.elements[i].custom_prop_count;
-            current_render_el->custom_properties = calloc(current_render_el->custom_prop_count, sizeof(KrbCustomProperty));
-            if (current_render_el->custom_properties) {
-                for (uint8_t j = 0; j < current_render_el->custom_prop_count; j++) {
-                    current_render_el->custom_properties[j] = doc.custom_properties[i][j];
-                    // Note: We're sharing the value pointers - be careful with cleanup
-                }
-            }
-        }
+        // Step 4: Apply contextual defaults (NEW - per your spec!)
+        apply_contextual_defaults(el, ctx, debug_file);
         
-        fprintf(debug_file, "INFO: Processing Elem %d (Type=0x%02X, StyleID=%d, Props=%d, CustomProps=%d)\n", 
-                i, current_render_el->header.type, current_render_el->header.style_id, 
-                current_render_el->header.property_count, current_render_el->custom_prop_count);
-        
-        // Apply Style
-        if (current_render_el->header.style_id > 0 && current_render_el->header.style_id <= doc.header.style_count && doc.styles) {
-            int style_idx = current_render_el->header.style_id - 1; 
-            KrbStyle* style = &doc.styles[style_idx];
-            fprintf(debug_file, "  Applying Style %d (Props=%d)\n", style_idx, style->property_count);
-            for(int j=0; j<style->property_count; ++j) { 
-                apply_property_to_element(current_render_el, &style->properties[j], &doc, debug_file);
-            }
-        } else if (current_render_el->header.style_id > 0) { 
-            fprintf(debug_file, "WARN: Style ID %d invalid.\n", current_render_el->header.style_id); 
-        }
-        
-        // Apply Direct Properties
-        fprintf(debug_file, "  Applying Direct Props (Count=%d)\n", current_render_el->header.property_count);
-        if (doc.properties && i < doc.header.element_count && doc.properties[i]) {
-             for (int j = 0; j < current_render_el->header.property_count; j++) { 
-                 apply_property_to_element(current_render_el, &doc.properties[i][j], &doc, debug_file);
-             }
-        }
-        
-        fprintf(debug_file, "  Finished Elem %d. Text='%s' Align=%d ResIdx=%d\n", 
-                i, current_render_el->text ? current_render_el->text : "NULL", 
-                current_render_el->text_alignment, current_render_el->resource_index);
+        fprintf(debug_file, "INFO: Initialized Elem %d. Text='%s' Visible=%s\n", 
+                i, el->text ? el->text : "NULL", el->is_visible ? "true" : "false");
     }
 
-    // --- Process Component Instances ---
-    if (!process_component_instances(ctx, debug_file)) {
-        fprintf(stderr, "ERROR: Failed to process component instances\n");
+    // Step 5: Apply Property Inheritance (existing code)
+    apply_property_inheritance(ctx, debug_file);
+
+
+    // --- Build Initial Parent/Child Tree ---
+    build_element_tree(ctx, debug_file);
+
+    // --- Expand Components and Apply Inheritance ---
+    if (!expand_all_components(ctx, debug_file)) {
+        fprintf(stderr, "ERROR: Failed to expand components\n");
         free_render_context(ctx);
         krb_free_document(&doc); free(krb_file_path_copy);
         if (debug_file != stderr) fclose(debug_file);
         return 1;
     }
 
-    // Connect component children (e.g., TabBar buttons to TabBar)
-    connect_component_children(ctx, debug_file);
-    // --- Build Parent/Child Tree FIRST ---
-    fprintf(debug_file, "INFO: Building element tree...\n");
-    RenderElement* parent_stack[MAX_ELEMENTS]; 
-    int stack_top = -1;
-
-    // Build tree for original elements
-    for (int i = 0; i < doc.header.element_count; i++) {
-        RenderElement* current_el = &ctx->elements[i];
-        
-        while (stack_top >= 0) { 
-            RenderElement* p = parent_stack[stack_top]; 
-            if (p->child_count >= p->header.child_count) 
-                stack_top--; 
-            else 
-                break; 
-        }
-        
-        if (stack_top >= 0) { 
-            RenderElement* p = parent_stack[stack_top]; 
-            current_el->parent = p; 
-            if (p->child_count < MAX_ELEMENTS) 
-                p->children[p->child_count++] = current_el; 
-            else 
-                fprintf(debug_file, "WARN: Max children parent %d.\n", p->original_index); 
-        }
-        
-        if (current_el->header.child_count > 0) { 
-            if (stack_top + 1 < MAX_ELEMENTS) 
-                parent_stack[++stack_top] = current_el; 
-            else 
-                fprintf(debug_file, "WARN: Max stack depth elem %d.\n", i); 
-        }
-    }
-
-    fprintf(debug_file, "INFO: Finished building element tree.\n");
-
-    // --- Process Component Instances (ONLY ONCE) ---
-    if (!process_component_instances(ctx, debug_file)) {
-        fprintf(stderr, "ERROR: Failed to process component instances\n");
-        free_render_context(ctx);
-        krb_free_document(&doc); free(krb_file_path_copy);
-        if (debug_file != stderr) fclose(debug_file);
-        return 1;
-    }
-
-    // Connect component children (ONLY ONCE)
-    connect_component_children(ctx, debug_file);
-
-    // Connect component instances to the main tree (ONLY ONCE)
-    connect_component_instances_to_tree(ctx, debug_file);
-
-    // --- THEN Calculate minimum sizes ---
-    fprintf(debug_file, "INFO: Calculating element minimum sizes...\n");
-    for (int i = 0; i < ctx->element_count; i++) {
-        calculate_element_minimum_size(&ctx->elements[i], ctx->scale_factor);
-    }
-    fprintf(debug_file, "INFO: Finished calculating minimum sizes\n");
+    // --- Apply Property Inheritance ---
+    apply_property_inheritance(ctx, debug_file);
 
     // --- Process Custom Components ---
     if (!process_custom_components(ctx, debug_file)) {
@@ -1199,177 +1307,58 @@ int main(int argc, char* argv[]) {
     }
     
     // --- Find Roots ---
-    RenderElement* root_elements[MAX_ELEMENTS]; 
-    int root_count = 0;
-
-    for(int i = 0; i < doc.header.element_count; ++i) { 
-        if (!ctx->elements[i].parent && !ctx->elements[i].is_placeholder) { 
-            if (root_count < MAX_ELEMENTS) 
-                root_elements[root_count++] = &ctx->elements[i]; 
-            else { 
-                fprintf(debug_file, "WARN: Max roots.\n"); 
-                break; 
-            } 
-        } 
-    }
-
-    // Add component instance roots ONLY if they don't have parents
-    ComponentInstance* instance = ctx->instances;  // <-- Add declaration
-
-    while (instance && root_count < MAX_ELEMENTS) {
-        if (instance->root && !instance->root->parent) {
-            root_elements[root_count++] = instance->root;
-        }
-        instance = instance->next;
-    }
-
-    // Add component instance roots that are not already included
-    instance = ctx->instances;
-    while (instance && root_count < MAX_ELEMENTS) {
-        if (instance->root && !instance->root->parent) {
-            root_elements[root_count++] = instance->root;
-        }
-        instance = instance->next;
-    }
-    
-    if (root_count == 0 && doc.header.element_count > 0) { 
-        fprintf(stderr, "ERROR: No root found!\n"); 
-        fprintf(debug_file, "ERROR: No root!\n"); 
-        free_render_context(ctx);
-        krb_free_document(&doc); 
-        free(krb_file_path_copy); 
-        if(debug_file!=stderr) fclose(debug_file); 
-        return 1; 
-    }
-    
-    fprintf(debug_file, "INFO: Found %d root(s).\n", root_count);
-
-    // --- Init Raylib Window ---
-    fprintf(debug_file, "INFO: Init window %dx%d Title: '%s'\n", 
-            ctx->window_width, ctx->window_height, 
-            ctx->window_title ? ctx->window_title : "KRB Renderer");
+    find_root_elements(ctx, debug_file);
+    // --- Initialize Raylib ---
     InitWindow(ctx->window_width, ctx->window_height, 
-               ctx->window_title ? ctx->window_title : "KRB Renderer");
+        ctx->window_title ? ctx->window_title : "KRB Renderer");
     if (ctx->resizable) SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
 
+    // --- Calculate Element Sizes (NOW that Raylib is initialized) ---
+    fprintf(debug_file, "INFO: Calculating element sizes after Raylib initialization...\n");
+    for (int i = 0; i < ctx->element_count; i++) {
+    RenderElement* el = &ctx->elements[i];
+    fprintf(debug_file, "CALCULATING SIZE FOR ELEMENT %d (type=0x%02X) text='%s'\n", 
+        i, el->header.type, el->text ? el->text : "NULL");
+    calculate_element_minimum_size(el, ctx->scale_factor);
+    fprintf(debug_file, "  -> Final size: %dx%d\n", el->render_w, el->render_h);
+    }
+
     // --- Load Textures ---
-    fprintf(debug_file, "INFO: Loading textures...\n");
-    for (int i = 0; i < doc.header.element_count; ++i) {
-        RenderElement* el = &ctx->elements[i];
-        if (el->header.type == ELEM_TYPE_IMAGE && el->resource_index != INVALID_RESOURCE_INDEX) {
-            if (el->resource_index >= doc.header.resource_count || !doc.resources) { 
-                fprintf(stderr, "ERROR: Elem %d invalid res idx %d (max %d).\n", 
-                        i, el->resource_index, doc.header.resource_count - 1); 
-                continue; 
-            }
-            
-            KrbResource* res = &doc.resources[el->resource_index];
-            if (res->format == RES_FORMAT_EXTERNAL) {
-                if (res->data_string_index >= doc.header.string_count || !doc.strings || !doc.strings[res->data_string_index]) { 
-                    fprintf(stderr, "ERROR: Res %d invalid data str idx %d.\n", 
-                            el->resource_index, res->data_string_index); 
-                    continue; 
-                }
-                
-                const char* relative_path = doc.strings[res->data_string_index];
-                char full_path[MAX_LINE_LENGTH];
-                
-                if (strcmp(krb_dir, ".") == 0) {
-                    snprintf(full_path, sizeof(full_path), "%s", relative_path);
-                } else {
-                    snprintf(full_path, sizeof(full_path), "%s/%s", krb_dir, relative_path);
-                }
-                full_path[sizeof(full_path) - 1] = '\0';
-
-                fprintf(debug_file, "  Loading texture Elem %d (Res %d): '%s' (Relative: '%s')\n", 
-                        i, el->resource_index, full_path, relative_path);
-
-                el->texture = LoadTexture(full_path);
-                if (IsTextureReady(el->texture)) {
-                    el->texture_loaded = true;
-                    fprintf(debug_file, "    -> OK (ID: %u, %dx%d)\n", 
-                            el->texture.id, el->texture.width, el->texture.height);
-                } else {
-                    fprintf(stderr, "ERROR: Failed load texture: %s\n", full_path);
-                    fprintf(debug_file, "    -> FAILED: %s\n", full_path);
-                    el->texture_loaded = false;
-                }
-            } else {
-                fprintf(debug_file, "WARN: Inline res NI Elem %d (Res %d).\n", i, el->resource_index);
-            }
-        }
-    }
+    load_all_textures(ctx, krb_dir, debug_file);
     
-    // Load textures for component instances
-    instance = ctx->instances;
-    while (instance) {
-        if (instance->root && instance->root->header.type == ELEM_TYPE_IMAGE && 
-            instance->root->resource_index != INVALID_RESOURCE_INDEX) {
-            // Similar texture loading logic as above
-            // (Implementation would be similar to the loop above)
-        }
-        instance = instance->next;
-    }
-    
-    fprintf(debug_file, "INFO: Finished loading textures.\n");
-
     // --- Main Loop ---
-    fprintf(debug_file, "INFO: Entering main loop...\n");
     while (!WindowShouldClose()) {
-        Vector2 mousePos = GetMousePosition();
-        if (ctx->resizable && IsWindowResized()) { 
-            ctx->window_width = GetScreenWidth(); 
-            ctx->window_height = GetScreenHeight(); 
-            if (app_element && app_element->parent == NULL) { 
-                app_element->render_w = ctx->window_width; 
-                app_element->render_h = ctx->window_height; 
-            } 
-            fprintf(debug_file, "INFO: Resized %dx%d.\n", ctx->window_width, ctx->window_height); 
-        }
+        handle_window_resize(ctx);
         
-        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
-        for (int i = doc.header.element_count - 1; i >= 0; --i) { 
-            RenderElement* el = &ctx->elements[i]; 
-            if (el->is_interactive && el->render_w > 0 && el->render_h > 0 && !el->is_placeholder) { 
-                Rectangle r = { (float)el->render_x, (float)el->render_y, (float)el->render_w, (float)el->render_h }; 
-                if (CheckCollisionPointRec(mousePos, r)) { 
-                    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND); 
-                    break; 
-                } 
-            } 
-        }
-
+        // Reset cursor tracking at start of each frame
+        reset_cursor_for_frame();
+        
         BeginDrawing();
         Color clear_color = (app_element) ? app_element->bg_color : BLACK; 
         ClearBackground(clear_color);
-        fflush(debug_file);
         
-        if (root_count > 0) {
-            for (int i = 0; i < root_count; ++i) { 
-                if (root_elements[i]) 
-                    render_element(root_elements[i], 0, 0, ctx->window_width, ctx->window_height, ctx->scale_factor, debug_file); 
-                else 
-                    fprintf(debug_file, "WARN: Root %d NULL.\n", i); 
+        // Render all root elements
+        for (int i = 0; i < ctx->root_count; i++) {
+            if (ctx->roots[i]) {
+                render_element(ctx->roots[i], 0, 0, ctx->window_width, ctx->window_height, ctx->scale_factor, debug_file); 
             }
-        } else { 
-            DrawText("No roots.", 10, 10, 20, RED); 
-            fprintf(debug_file, "--- FRAME SKIPPED (No roots) ---\n"); 
+        }
+        
+        // If no interactive element was hovered, ensure default cursor
+        if (!g_cursor_set_this_frame) {
+            SetMouseCursor(MOUSE_CURSOR_DEFAULT);
         }
         
         EndDrawing();
     }
-
     // --- Cleanup ---
-    fprintf(debug_file, "INFO: Closing & cleanup...\n"); 
     CloseWindow();
-    fprintf(debug_file, "INFO: Cleanup complete.\n");
-    
     free_render_context(ctx);
     krb_free_document(&doc);
     free(krb_file_path_copy);
-    if (debug_file != stderr) { fclose(debug_file); }
-    printf("Standalone renderer finished.\n");
+    if (debug_file != stderr) fclose(debug_file);
+    
     return 0;
 }
 

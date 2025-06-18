@@ -21,6 +21,7 @@ typedef struct ComponentInstance {
     struct ComponentInstance* next;     // For linked list of instances
 } ComponentInstance;
 
+// --- Render Element Structure ---
 typedef struct RenderElement {
     KrbElementHeader header;
     char* text;
@@ -32,6 +33,7 @@ typedef struct RenderElement {
     struct RenderElement* parent;
     struct RenderElement* children[MAX_ELEMENTS];
     int child_count;
+    float font_size;
 
     // Runtime rendering data
     int render_x;
@@ -39,7 +41,8 @@ typedef struct RenderElement {
     int render_w;
     int render_h;
     bool is_interactive;
-    bool is_visible;  // *** ADD THIS LINE ***
+    bool is_visible;
+    
     int original_index;
 
     // Resource handling
@@ -55,10 +58,9 @@ typedef struct RenderElement {
     // Custom properties support
     KrbCustomProperty* custom_properties;
     uint8_t custom_prop_count;
-
 } RenderElement;
 
-// --- Enhanced Document Context ---
+// --- Render Context Structure ---
 typedef struct RenderContext {
     KrbDocument* doc;                   // Original KRB document
     RenderElement* elements;            // Array of all render elements (including instantiated ones)
@@ -75,34 +77,45 @@ typedef struct RenderContext {
     float scale_factor;
     char* window_title;
     bool resizable;
+
+    RenderElement* roots[MAX_ELEMENTS];
+    int root_count;
 } RenderContext;
 
-// --- Function Declarations ---
-
-
-// Main rendering function
-void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 
-    int parent_content_width, int parent_content_height, 
-    float scale_factor, FILE* debug_file);
-
-// Component instantiation functions
-bool process_component_instances(RenderContext* ctx, FILE* debug_file);
-ComponentInstance* instantiate_component(RenderContext* ctx, RenderElement* placeholder, 
-                         uint8_t component_def_index, FILE* debug_file);
-RenderElement* create_element_from_template(RenderContext* ctx, KrbElementHeader* template_header,
-                           KrbProperty* template_properties, int template_prop_count,
-                           FILE* debug_file);
-void apply_instance_properties(RenderElement* instance_root, RenderElement* placeholder, FILE* debug_file);
-bool find_component_name_property(KrbCustomProperty* custom_props, uint8_t custom_prop_count, 
-                  char** strings, uint8_t* out_component_index);
-
-// Property and sizing functions
-void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDocument* doc, FILE* debug_file);
-void calculate_element_minimum_size(RenderElement* el, float scale_factor);
-void connect_component_children(RenderContext* ctx, FILE* debug_file);
-
-// Setup functions
+// --- Context Management Functions ---
 RenderContext* create_render_context(KrbDocument* doc, FILE* debug_file);
 void free_render_context(RenderContext* ctx);
+
+// --- Element Initialization and Setup Functions ---
+void initialize_render_element(RenderElement* el, KrbElementHeader* header, int index, RenderContext* ctx);
+void process_app_element_properties(RenderElement* app_element, KrbDocument* doc, RenderContext* ctx, FILE* debug_file);
+void apply_element_styling(RenderElement* el, KrbDocument* doc, RenderContext* ctx, FILE* debug_file);
+void build_element_tree(RenderContext* ctx, FILE* debug_file);
+void find_root_elements(RenderContext* ctx, FILE* debug_file);
+
+// --- Property and Styling Functions ---
+void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDocument* doc, FILE* debug_file);
+void apply_property_inheritance(RenderContext* ctx, FILE* debug_file);
+void inherit_properties_recursive(RenderElement* el, RenderContext* ctx, FILE* debug_file);
+
+// --- Component Expansion Functions ---
+bool expand_all_components(RenderContext* ctx, FILE* debug_file);
+bool expand_component_for_element(RenderContext* ctx, RenderElement* element, uint8_t component_name_index, FILE* debug_file);
+bool find_component_name_property(KrbCustomProperty* custom_props, uint8_t custom_prop_count, 
+                                 char** strings, uint8_t* out_component_index);
+
+// --- Layout and Sizing Functions ---
+void calculate_element_minimum_size(RenderElement* el, float scale_factor);
+
+// --- Resource and Texture Functions ---
+void load_all_textures(RenderContext* ctx, const char* base_dir, FILE* debug_file);
+
+// --- Window and Event Handling Functions ---
+void handle_window_resize(RenderContext* ctx);
+
+// --- Main Rendering Function ---
+void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 
+                   int parent_content_width, int parent_content_height, 
+                   float scale_factor, FILE* debug_file);
 
 #endif // KRB_RENDERER_H
