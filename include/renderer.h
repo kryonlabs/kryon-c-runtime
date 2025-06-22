@@ -58,6 +58,15 @@ typedef struct RenderElement {
     // Custom properties support
     KrbCustomProperty* custom_properties;
     uint8_t custom_prop_count;
+    
+    // NEW: State properties support
+    KrbStatePropertySet* state_properties;
+    uint8_t state_prop_count;
+    uint8_t current_state;               // Current interaction state flags
+    
+    // NEW: Cursor support
+    uint8_t cursor_type;                 // Cursor type for this element
+    
 } RenderElement;
 
 // --- Render Context Structure ---
@@ -80,6 +89,10 @@ typedef struct RenderContext {
 
     RenderElement* roots[MAX_ELEMENTS];
     int root_count;
+    
+    // NEW: Script support (basic - full implementation would require script engines)
+    bool scripts_enabled;
+    void* script_context;               // Placeholder for script engine context
 } RenderContext;
 
 // --- Context Management Functions ---
@@ -98,6 +111,11 @@ void apply_property_to_element(RenderElement* element, KrbProperty* prop, KrbDoc
 void apply_property_inheritance(RenderContext* ctx, FILE* debug_file);
 void inherit_properties_recursive(RenderElement* el, RenderContext* ctx, FILE* debug_file);
 
+// NEW: State-based property resolution functions
+void update_element_state(RenderElement* el, uint8_t new_state, RenderContext* ctx, FILE* debug_file);
+void resolve_state_properties(RenderElement* el, RenderContext* ctx, FILE* debug_file);
+Color resolve_state_color_property(RenderElement* el, uint8_t base_prop_id, Color base_color);
+
 // --- Component Expansion Functions ---
 bool expand_all_components(RenderContext* ctx, FILE* debug_file);
 bool expand_component_for_element(RenderContext* ctx, RenderElement* element, uint8_t component_name_index, FILE* debug_file);
@@ -112,6 +130,11 @@ void load_all_textures(RenderContext* ctx, const char* base_dir, FILE* debug_fil
 
 // --- Window and Event Handling Functions ---
 void handle_window_resize(RenderContext* ctx);
+void handle_mouse_events(RenderContext* ctx, FILE* debug_file);
+
+// NEW: Script-related functions (basic stubs)
+bool load_scripts(RenderContext* ctx, FILE* debug_file);
+bool execute_script_function(RenderContext* ctx, const char* function_name, FILE* debug_file);
 
 // --- Main Rendering Function ---
 void render_element(RenderElement* el, int parent_content_x, int parent_content_y, 

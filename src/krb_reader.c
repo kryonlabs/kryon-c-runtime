@@ -22,10 +22,8 @@ uint32_t krb_read_u32_le(const void* data) {
 }
 
 // --- Internal Read Helpers ---
-
-// Reads the main file header (KRB v0.4 - 48 bytes)
 static bool read_header_internal(FILE* file, KrbHeader* header) {
-    unsigned char buffer[48]; // Updated size to 48 bytes
+    unsigned char buffer[54];
     if (!file || !header) return false;
     if (fseek(file, 0, SEEK_SET) != 0) {
         perror("Error seeking to start of file"); 
@@ -37,60 +35,44 @@ static bool read_header_internal(FILE* file, KrbHeader* header) {
         return false;
     }
 
-    // Parse header fields using helpers for endianness
+    // Parse ALL fields correctly from the buffer according to KRB v0.5 spec
     memcpy(header->magic, buffer + 0, 4);
-    header->version              = krb_read_u16_le(buffer + 4);
-    header->flags                = krb_read_u16_le(buffer + 6);
-    header->element_count        = krb_read_u16_le(buffer + 8);
-    header->style_count          = krb_read_u16_le(buffer + 10);
-    header->component_def_count  = krb_read_u16_le(buffer + 12);  // NEW
-    header->animation_count      = krb_read_u16_le(buffer + 14);
-    header->string_count         = krb_read_u16_le(buffer + 16);
-    header->resource_count       = krb_read_u16_le(buffer + 18);
-    header->element_offset       = krb_read_u32_le(buffer + 20);
-    header->style_offset         = krb_read_u32_le(buffer + 24);
-    header->component_def_offset = krb_read_u32_le(buffer + 28);  // NEW
-    header->animation_offset     = krb_read_u32_le(buffer + 32);
-    header->string_offset        = krb_read_u32_le(buffer + 36);
-    header->resource_offset      = krb_read_u32_le(buffer + 40);
-    header->total_size           = krb_read_u32_le(buffer + 44);
+    header->version = krb_read_u16_le(buffer + 4);
+    header->flags = krb_read_u16_le(buffer + 6);
+    header->element_count = krb_read_u16_le(buffer + 8);
+    header->style_count = krb_read_u16_le(buffer + 10);
+    header->component_def_count = krb_read_u16_le(buffer + 12);
+    header->animation_count = krb_read_u16_le(buffer + 14);
+    header->script_count = krb_read_u16_le(buffer + 16);
+    header->string_count = krb_read_u16_le(buffer + 18);
+    header->resource_count = krb_read_u16_le(buffer + 20);
+    
+    // READ THE ACTUAL OFFSET FIELDS - DON'T HARDCODE THEM!
+    header->element_offset = krb_read_u32_le(buffer + 22);
+    header->style_offset = krb_read_u32_le(buffer + 26);
+    header->component_def_offset = krb_read_u32_le(buffer + 30);
+    header->animation_offset = krb_read_u32_le(buffer + 34);
+    header->script_offset = krb_read_u32_le(buffer + 38);
+    header->string_offset = krb_read_u32_le(buffer + 42);
+    header->resource_offset = krb_read_u32_le(buffer + 46);
+    header->total_size = krb_read_u32_le(buffer + 50);
 
-    // Basic Validations
+    // Validate magic number
     if (memcmp(header->magic, "KRB1", 4) != 0) {
-        fprintf(stderr, "Error: Invalid magic number. Expected 'KRB1', got '%.4s'\n", header->magic);
+        fprintf(stderr, "Error: Invalid magic number in KRB header\n");
         return false;
     }
-    
-    uint8_t major = (header->version & 0x00FF);
-    uint8_t minor = (header->version >> 8);
-    if (major != KRB_SPEC_VERSION_MAJOR || minor != KRB_SPEC_VERSION_MINOR) {
-        fprintf(stderr, "Warning: KRB version mismatch. Expected %d.%d, got %d.%d. Parsing continues but may be unreliable.\n",
-                KRB_SPEC_VERSION_MAJOR, KRB_SPEC_VERSION_MINOR, major, minor);
-    }
-    
-    // Check reasonable offset values
-    uint32_t min_offset = sizeof(KrbHeader);
-    if (header->element_count > 0 && header->element_offset < min_offset) { 
-        fprintf(stderr, "Error: Element offset (%u) overlaps header (%u).\n", header->element_offset, min_offset); 
-        return false; 
-    }
-    if (header->style_count > 0 && header->style_offset < min_offset) { 
-        fprintf(stderr, "Error: Style offset (%u) overlaps header.\n", header->style_offset); 
-        return false; 
-    }
-    if (header->component_def_count > 0 && header->component_def_offset < min_offset) { 
-        fprintf(stderr, "Error: Component def offset (%u) overlaps header.\n", header->component_def_offset); 
-        return false; 
-    }
-    if (header->resource_count > 0 && header->resource_offset < min_offset) { 
-        fprintf(stderr, "Error: Resource offset (%u) overlaps header.\n", header->resource_offset); 
-        return false; 
-    }
+
+    printf("DEBUG: Read offsets from file:\n");
+    printf("  element_offset = %u\n", header->element_offset);
+    printf("  style_offset = %u\n", header->style_offset);
+    printf("  string_offset = %u\n", header->string_offset);
+    printf("  resource_offset = %u\n", header->resource_offset);
 
     return true;
 }
 
-// Reads element header (17 bytes for v0.4)
+// Reads element header (18 bytes for v0.5)
 static bool read_element_header_internal(FILE* file, KrbElementHeader* element) {
     if (!file || !element) {
         fprintf(stderr, "Error: NULL file or element pointer passed to read_element_header_internal.\n");
@@ -98,8 +80,8 @@ static bool read_element_header_internal(FILE* file, KrbElementHeader* element) 
     }
 
     size_t expected_size = sizeof(KrbElementHeader);
-    if (expected_size != 17) {
-        fprintf(stderr, "Error: KrbElementHeader size mismatch! Expected 17, got %zu. Check krb.h definition and packing.\n", expected_size);
+    if (expected_size != 18) {
+        fprintf(stderr, "Error: KrbElementHeader size mismatch! Expected 18, got %zu. Check krb.h definition and packing.\n", expected_size);
         return false;
     }
 
@@ -152,7 +134,7 @@ static bool read_property_internal(FILE* file, KrbProperty* prop) {
     return true;
 }
 
-// NEW: Reads a single custom property
+// Reads a single custom property
 static bool read_custom_property_internal(FILE* file, KrbCustomProperty* custom_prop) {
     unsigned char buffer[3]; // KeyIndex(1)+Type(1)+Size(1)
     long prop_header_offset = ftell(file);
@@ -184,6 +166,126 @@ static bool read_custom_property_internal(FILE* file, KrbCustomProperty* custom_
     return true;
 }
 
+// NEW: Reads a single state property set
+static bool read_state_property_set_internal(FILE* file, KrbStatePropertySet* state_set) {
+    unsigned char buffer[2]; // StateFlags(1)+PropertyCount(1)
+    long state_header_offset = ftell(file);
+    if (fread(buffer, 1, 2, file) != 2) {
+        fprintf(stderr, "Error: Failed reading state property set header @ %ld\n", state_header_offset);
+        state_set->properties = NULL;
+        state_set->property_count = 0;
+        return false;
+    }
+    
+    state_set->state_flags = buffer[0];
+    state_set->property_count = buffer[1];
+    state_set->properties = NULL;
+    
+    if (state_set->property_count > 0) {
+        state_set->properties = calloc(state_set->property_count, sizeof(KrbProperty));
+        if (!state_set->properties) {
+            perror("malloc state property set properties");
+            return false;
+        }
+        
+        // Read each property in the state set
+        for (uint8_t i = 0; i < state_set->property_count; i++) {
+            if (!read_property_internal(file, &state_set->properties[i])) {
+                fprintf(stderr, "Error: Failed reading state property %u in set @ %ld\n", i, state_header_offset);
+                // Clean up already allocated properties
+                for (uint8_t j = 0; j < i; j++) {
+                    if (state_set->properties[j].value) {
+                        free(state_set->properties[j].value);
+                    }
+                }
+                free(state_set->properties);
+                state_set->properties = NULL;
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
+// NEW: Reads a script function entry
+static bool read_script_function_internal(FILE* file, KrbScriptFunction* func) {
+    if (fread(&func->function_name_index, 1, 1, file) != 1) {
+        fprintf(stderr, "Error: Failed reading script function name index\n");
+        return false;
+    }
+    return true;
+}
+
+// NEW: Reads a script entry
+static bool read_script_internal(FILE* file, KrbScript* script) {
+    unsigned char buffer[6]; // LanguageID(1)+NameIndex(1)+StorageFormat(1)+EntryPointCount(1)+DataSize(2)
+    long script_header_offset = ftell(file);
+    
+    if (fread(buffer, 1, 6, file) != 6) {
+        fprintf(stderr, "Error: Failed reading script header @ %ld\n", script_header_offset);
+        return false;
+    }
+    
+    script->language_id = buffer[0];
+    script->name_index = buffer[1];
+    script->storage_format = buffer[2];
+    script->entry_point_count = buffer[3];
+    script->data_size = krb_read_u16_le(buffer + 4);
+    script->entry_points = NULL;
+    script->code_data = NULL;
+    script->resource_index = 0;
+    
+    // Read entry points
+    if (script->entry_point_count > 0) {
+        script->entry_points = calloc(script->entry_point_count, sizeof(KrbScriptFunction));
+        if (!script->entry_points) {
+            perror("malloc script entry points");
+            return false;
+        }
+        
+        for (uint8_t i = 0; i < script->entry_point_count; i++) {
+            if (!read_script_function_internal(file, &script->entry_points[i])) {
+                fprintf(stderr, "Error: Failed reading script function %u @ %ld\n", i, script_header_offset);
+                free(script->entry_points);
+                script->entry_points = NULL;
+                return false;
+            }
+        }
+    }
+    
+    // Read script data based on storage format
+    if (script->storage_format == SCRIPT_STORAGE_INLINE) {
+        // Inline script - read code data directly
+        if (script->data_size > 0) {
+            script->code_data = malloc(script->data_size);
+            if (!script->code_data) {
+                perror("malloc script code data");
+                if (script->entry_points) free(script->entry_points);
+                return false;
+            }
+            
+            if (fread(script->code_data, 1, script->data_size, file) != script->data_size) {
+                fprintf(stderr, "Error: Failed reading %u bytes script code data @ %ld\n", 
+                        script->data_size, script_header_offset);
+                free(script->code_data);
+                if (script->entry_points) free(script->entry_points);
+                return false;
+            }
+        }
+    } else if (script->storage_format == SCRIPT_STORAGE_EXTERNAL) {
+        // External script - data_size field contains resource index
+        script->resource_index = (uint8_t)script->data_size;
+    } else {
+        fprintf(stderr, "Error: Unknown script storage format 0x%02X @ %ld\n", 
+                script->storage_format, script_header_offset);
+        if (script->entry_points) free(script->entry_points);
+        return false;
+    }
+    
+    return true;
+}
+
 // --- Public API Functions ---
 
 // Reads the entire KRB document structure into memory.
@@ -198,22 +300,34 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
     // Store parsed version components
     doc->version_major = (doc->header.version & 0x00FF);
     doc->version_minor = (doc->header.version >> 8);
-
     // Validate App element presence if flag is set
     if ((doc->header.flags & FLAG_HAS_APP) && doc->header.element_count > 0) {
         long original_pos = ftell(file);
+        printf("DEBUG: App check - original_pos=%ld, element_offset=%u\n", original_pos, doc->header.element_offset);
+        
         if (fseek(file, doc->header.element_offset, SEEK_SET) != 0) { 
             perror("seek App check"); 
             krb_free_document(doc); 
             return false; 
         }
+        
+        long current_pos = ftell(file);
+        printf("DEBUG: App check - after seek, current_pos=%ld\n", current_pos);
+        
         unsigned char first_type;
-        if (fread(&first_type, 1, 1, file) != 1) { 
-            fprintf(stderr, "read App check failed\n"); 
+        size_t bytes_read = fread(&first_type, 1, 1, file);
+        if (bytes_read != 1) { 
+            fprintf(stderr, "read App check failed: requested 1 byte, got %zu bytes\n", bytes_read);
+            if (feof(file)) fprintf(stderr, "  - End of file reached\n");
+            if (ferror(file)) fprintf(stderr, "  - File read error\n");
+            perror("  - System error");
             fseek(file, original_pos, SEEK_SET); 
             krb_free_document(doc); 
             return false; 
         }
+        
+        printf("DEBUG: App check - read first_type=0x%02X\n", first_type);
+        
         if (first_type != ELEM_TYPE_APP) { 
             fprintf(stderr, "Error: FLAG_HAS_APP set, but first elem type 0x%02X != 0x00\n", first_type); 
             fseek(file, original_pos, SEEK_SET); 
@@ -226,8 +340,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             return false; 
         }
     }
-
-    // --- Read Elements, Properties, Custom Properties, and Events ---
+    // --- Read Elements, Properties, Custom Properties, State Properties, and Events ---
     if (doc->header.element_count > 0) {
         if (doc->header.element_offset == 0) { 
             fprintf(stderr, "Error: Zero element offset with non-zero count.\n"); 
@@ -238,11 +351,12 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
         // Allocate memory
         doc->elements = calloc(doc->header.element_count, sizeof(KrbElementHeader));
         doc->properties = calloc(doc->header.element_count, sizeof(KrbProperty*));
-        doc->custom_properties = calloc(doc->header.element_count, sizeof(KrbCustomProperty*)); // NEW
+        doc->custom_properties = calloc(doc->header.element_count, sizeof(KrbCustomProperty*));
+        doc->state_properties = calloc(doc->header.element_count, sizeof(KrbStatePropertySet*)); // NEW
         doc->events = calloc(doc->header.element_count, sizeof(KrbEventFileEntry*));
         
-        if (!doc->elements || !doc->properties || !doc->custom_properties || !doc->events) {
-            perror("calloc elements/props/custom_props/events ptrs"); 
+        if (!doc->elements || !doc->properties || !doc->custom_properties || !doc->state_properties || !doc->events) {
+            perror("calloc elements/props/custom_props/state_props/events ptrs"); 
             krb_free_document(doc); 
             return false;
         }
@@ -279,7 +393,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
                 }
             }
 
-            // NEW: Read custom properties
+            // Read custom properties
             if (doc->elements[i].custom_prop_count > 0) {
                 doc->custom_properties[i] = calloc(doc->elements[i].custom_prop_count, sizeof(KrbCustomProperty));
                 if (!doc->custom_properties[i]) { 
@@ -292,6 +406,24 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
                     if (!read_custom_property_internal(file, &doc->custom_properties[i][j])) {
                         fprintf(stderr, "Failed reading custom prop %u elem %u\n", j, i); 
                         krb_free_document(doc); 
+                        return false;
+                    }
+                }
+            }
+
+            // NEW: Read state properties
+            if (doc->elements[i].state_prop_count > 0) {
+                doc->state_properties[i] = calloc(doc->elements[i].state_prop_count, sizeof(KrbStatePropertySet));
+                if (!doc->state_properties[i]) {
+                    perror("calloc state props elem");
+                    fprintf(stderr, "Elem %u\n", i);
+                    krb_free_document(doc);
+                    return false;
+                }
+                for (uint8_t j = 0; j < doc->elements[i].state_prop_count; j++) {
+                    if (!read_state_property_set_internal(file, &doc->state_properties[i][j])) {
+                        fprintf(stderr, "Failed reading state prop set %u elem %u\n", j, i);
+                        krb_free_document(doc);
                         return false;
                     }
                 }
@@ -379,7 +511,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
         }
     }
 
-    // --- NEW: Read Component Definitions ---
+    // --- Read Component Definitions ---
     if (doc->header.component_def_count > 0) {
         if (doc->header.component_def_offset == 0) { 
             fprintf(stderr, "Error: Zero component def offset with non-zero count.\n"); 
@@ -451,24 +583,24 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             }
 
             // Read root element template
-            // For simplicity, we'll just read the header for now
-            // Full implementation would need to handle the complete element block structure
             if (!read_element_header_internal(file, &doc->component_defs[i].root_template_header)) {
                 fprintf(stderr, "Failed reading root template header component %u\n", i); 
                 krb_free_document(doc); 
                 return false;
             }
             
-            // Initialize template property arrays to NULL (full parsing would follow)
+            // Initialize template property arrays to NULL (simplified implementation)
             doc->component_defs[i].root_template_properties = NULL;
             doc->component_defs[i].root_template_custom_props = NULL;
+            doc->component_defs[i].root_template_state_props = NULL; // NEW
             doc->component_defs[i].root_template_events = NULL;
             
-            // Skip the rest of the template for now (properties, custom props, events, children)
+            // Skip the rest of the template for now (properties, custom props, state props, events, children)
             // This is a simplified implementation - full version would parse these
             long template_bytes_to_skip = 
                 (long)doc->component_defs[i].root_template_header.property_count * 3 + // Property headers (minimum)
                 (long)doc->component_defs[i].root_template_header.custom_prop_count * 3 + // Custom prop headers (minimum)
+                (long)doc->component_defs[i].root_template_header.state_prop_count * 2 + // State prop headers (minimum)
                 (long)doc->component_defs[i].root_template_header.event_count * 2 + // Events
                 (long)doc->component_defs[i].root_template_header.animation_count * 2 + // Animation refs
                 (long)doc->component_defs[i].root_template_header.child_count * 2; // Child refs
@@ -480,10 +612,54 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             }
         }
     }
-
+ 
     // --- Read Animations (Skipped) ---
     // TODO: Implement animation reading if needed
-
+ 
+    // --- NEW: Read Scripts ---
+    if (doc->header.script_count > 0) {
+        if (doc->header.script_offset == 0) {
+            fprintf(stderr, "Error: Zero script offset with non-zero count.\n");
+            krb_free_document(doc);
+            return false;
+        }
+        
+        doc->scripts = calloc(doc->header.script_count, sizeof(KrbScript));
+        if (!doc->scripts) {
+            perror("calloc scripts");
+            krb_free_document(doc);
+            return false;
+        }
+        
+        if (fseek(file, doc->header.script_offset, SEEK_SET) != 0) {
+            perror("seek scripts");
+            krb_free_document(doc);
+            return false;
+        }
+ 
+        // Read script table header (script count)
+        unsigned char script_count_bytes[2];
+        if (fread(script_count_bytes, 1, 2, file) != 2) {
+            fprintf(stderr, "Failed read script table count\n");
+            krb_free_document(doc);
+            return false;
+        }
+        uint16_t table_script_count = krb_read_u16_le(script_count_bytes);
+        if (table_script_count != doc->header.script_count) {
+            fprintf(stderr, "Warning: Header script count %u != table count %u\n", 
+                    doc->header.script_count, table_script_count);
+        }
+ 
+        // Read each script entry
+        for (uint16_t i = 0; i < doc->header.script_count; i++) {
+            if (!read_script_internal(file, &doc->scripts[i])) {
+                fprintf(stderr, "Failed reading script %u\n", i);
+                krb_free_document(doc);
+                return false;
+            }
+        }
+    }
+ 
     // --- Read Strings ---
     if (doc->header.string_count > 0) {
         if (doc->header.string_offset == 0) { 
@@ -502,7 +678,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             krb_free_document(doc); 
             return false; 
         }
-
+ 
         unsigned char stc_bytes[2]; 
         if (fread(stc_bytes, 1, 2, file) != 2) { 
             fprintf(stderr, "Failed read string table count\n"); 
@@ -513,7 +689,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
         if (table_count != doc->header.string_count) { 
             fprintf(stderr, "Warning: Header string count %u != table count %u\n", doc->header.string_count, table_count); 
         }
-
+ 
         for (uint16_t i = 0; i < doc->header.string_count; i++) {
             uint8_t length;
             if (fread(&length, 1, 1, file) != 1) { 
@@ -538,7 +714,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             doc->strings[i][length] = '\0';
         }
     }
-
+ 
     // --- Read Resources ---
     if (doc->header.resource_count > 0) {
         if (doc->header.resource_offset == 0) { 
@@ -557,7 +733,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             krb_free_document(doc); 
             return false; 
         }
-
+ 
         unsigned char resc_bytes[2];
         if (fread(resc_bytes, 1, 2, file) != 2) { 
             fprintf(stderr, "Failed read resource table count\n"); 
@@ -568,7 +744,7 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
         if (table_res_count != doc->header.resource_count) { 
             fprintf(stderr, "Warning: Header resource count %u != table count %u\n", doc->header.resource_count, table_res_count); 
         }
-
+ 
         for (uint16_t i = 0; i < doc->header.resource_count; i++) {
             unsigned char res_entry_buf[4]; // Type(1)+NameIdx(1)+Format(1)+DataIdx(1)
             if (fread(res_entry_buf, 1, 4, file) != 4) {
@@ -593,15 +769,15 @@ bool krb_read_document(FILE* file, KrbDocument* doc) {
             }
         }
     }
-
+ 
     return true;
-}
-
-// Frees all memory allocated within the KrbDocument structure.
-void krb_free_document(KrbDocument* doc) {
+ }
+ 
+ // Frees all memory allocated within the KrbDocument structure.
+ void krb_free_document(KrbDocument* doc) {
     if (!doc) return;
-
-    // Free Element Data (Properties, Custom Properties, and Events)
+ 
+    // Free Element Data (Properties, Custom Properties, State Properties, and Events)
     if (doc->elements) {
         for (uint16_t i = 0; i < doc->header.element_count; i++) {
             // Free standard properties
@@ -614,7 +790,7 @@ void krb_free_document(KrbDocument* doc) {
                 free(doc->properties[i]);
             }
             
-            // NEW: Free custom properties
+            // Free custom properties
             if (doc->custom_properties && doc->custom_properties[i]) {
                 for (uint8_t j = 0; j < doc->elements[i].custom_prop_count; j++) {
                     if (doc->custom_properties[i][j].value) {
@@ -622,6 +798,22 @@ void krb_free_document(KrbDocument* doc) {
                     }
                 }
                 free(doc->custom_properties[i]);
+            }
+            
+            // NEW: Free state properties
+            if (doc->state_properties && doc->state_properties[i]) {
+                for (uint8_t j = 0; j < doc->elements[i].state_prop_count; j++) {
+                    if (doc->state_properties[i][j].properties) {
+                        // Free individual properties within the state set
+                        for (uint8_t k = 0; k < doc->state_properties[i][j].property_count; k++) {
+                            if (doc->state_properties[i][j].properties[k].value) {
+                                free(doc->state_properties[i][j].properties[k].value);
+                            }
+                        }
+                        free(doc->state_properties[i][j].properties);
+                    }
+                }
+                free(doc->state_properties[i]);
             }
             
             // Free events
@@ -633,10 +825,11 @@ void krb_free_document(KrbDocument* doc) {
     
     // Free top-level pointer arrays
     if (doc->properties) free(doc->properties);
-    if (doc->custom_properties) free(doc->custom_properties); // NEW
+    if (doc->custom_properties) free(doc->custom_properties);
+    if (doc->state_properties) free(doc->state_properties); // NEW
     if (doc->events) free(doc->events);
     if (doc->elements) free(doc->elements);
-
+ 
     // Free Styles
     if (doc->styles) {
         for (uint16_t i = 0; i < doc->header.style_count; i++) {
@@ -651,8 +844,8 @@ void krb_free_document(KrbDocument* doc) {
         }
         free(doc->styles);
     }
-
-    // NEW: Free Component Definitions
+ 
+    // Free Component Definitions
     if (doc->component_defs) {
         for (uint16_t i = 0; i < doc->header.component_def_count; i++) {
             if (doc->component_defs[i].property_defs) {
@@ -672,13 +865,32 @@ void krb_free_document(KrbDocument* doc) {
                 // Would need to free individual custom property values here
                 free(doc->component_defs[i].root_template_custom_props);
             }
+            if (doc->component_defs[i].root_template_state_props) { // NEW
+                // Would need to free individual state property sets here
+                free(doc->component_defs[i].root_template_state_props);
+            }
             if (doc->component_defs[i].root_template_events) {
                 free(doc->component_defs[i].root_template_events);
             }
         }
         free(doc->component_defs);
     }
-
+ 
+    // NEW: Free Scripts
+    if (doc->scripts) {
+        for (uint16_t i = 0; i < doc->header.script_count; i++) {
+            // Free entry points
+            if (doc->scripts[i].entry_points) {
+                free(doc->scripts[i].entry_points);
+            }
+            // Free inline code data
+            if (doc->scripts[i].code_data) {
+                free(doc->scripts[i].code_data);
+            }
+        }
+        free(doc->scripts);
+    }
+ 
     // Free Strings
     if (doc->strings) {
         for (uint16_t i = 0; i < doc->header.string_count; i++) {
@@ -688,9 +900,9 @@ void krb_free_document(KrbDocument* doc) {
         }
         free(doc->strings);
     }
-
+ 
     // Free Resources
     if (doc->resources) {
         free(doc->resources);
     }
-}
+ }

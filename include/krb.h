@@ -10,10 +10,10 @@
 #define MAX_ELEMENTS 256
 #endif
 
-// --- Constants from KRB v0.4 Specification ---
+// --- Constants from KRB v0.5 Specification ---
 
 #define KRB_SPEC_VERSION_MAJOR 0
-#define KRB_SPEC_VERSION_MINOR 4
+#define KRB_SPEC_VERSION_MINOR 5  // Updated to v0.5
 
 // Header Flags
 #define FLAG_HAS_STYLES        (1 << 0)
@@ -24,7 +24,9 @@
 #define FLAG_FIXED_POINT       (1 << 5)
 #define FLAG_EXTENDED_COLOR    (1 << 6)
 #define FLAG_HAS_APP           (1 << 7)
-// Bits 8-15 Reserved
+#define FLAG_HAS_SCRIPTS       (1 << 8)  // NEW
+#define FLAG_HAS_STATE_PROPERTIES (1 << 9)  // NEW
+// Bits 10-15 Reserved
 
 // Element Types
 #define ELEM_TYPE_APP         0x00
@@ -77,7 +79,8 @@
 #define PROP_ID_ICON            0x26
 #define PROP_ID_VERSION         0x27
 #define PROP_ID_AUTHOR          0x28
-// 0x29 - 0xFF Reserved
+#define PROP_ID_CURSOR          0x29  // NEW
+// 0x2A - 0xFF Reserved
 
 // Value Types
 #define VAL_TYPE_NONE       0x00
@@ -122,38 +125,59 @@
 #define RES_TYPE_FONT       0x02
 #define RES_TYPE_SOUND      0x03
 #define RES_TYPE_VIDEO      0x04
-#define RES_TYPE_CUSTOM     0x05
-// 0x06 - 0xFF Reserved
+#define RES_TYPE_SCRIPT     0x05  // NEW
+#define RES_TYPE_CUSTOM     0x06
+// 0x07 - 0xFF Reserved
 
 // Resource Formats
 #define RES_FORMAT_EXTERNAL 0x00
 #define RES_FORMAT_INLINE   0x01
 
+// NEW: Script Language Constants
+#define SCRIPT_LANG_LUA        0x01
+#define SCRIPT_LANG_JAVASCRIPT 0x02
+#define SCRIPT_LANG_PYTHON     0x03
+#define SCRIPT_LANG_WREN       0x04
+
+// NEW: Script Storage Format Constants
+#define SCRIPT_STORAGE_INLINE   0x00
+#define SCRIPT_STORAGE_EXTERNAL 0x01
+
+// NEW: State Flags for Pseudo-selectors
+#define STATE_HOVER    (1 << 0)  // :hover
+#define STATE_ACTIVE   (1 << 1)  // :active
+#define STATE_FOCUS    (1 << 2)  // :focus
+#define STATE_DISABLED (1 << 3)  // :disabled
+#define STATE_CHECKED  (1 << 4)  // :checked
+// Bits 5-7 Reserved
+
 // --- Data Structures ---
 
 #pragma pack(push, 1)
 
-// KRB v0.4 Header Structure (48 bytes) - Updated from v0.2 (42 bytes)
+// KRB v0.5 Header Structure (54 bytes) - Updated from v0.4 (48 bytes)
 typedef struct {
     char magic[4];           // "KRB1"
-    uint16_t version;        // Minor << 8 | Major (e.g., 0x0004 for 0.4)
-    uint16_t flags;          // Updated flags including FLAG_HAS_COMPONENT_DEFS
+    uint16_t version;        // Minor << 8 | Major (e.g., 0x0005 for 0.5)
+    uint16_t flags;          // Updated flags including script and state properties
     uint16_t element_count;
     uint16_t style_count;
-    uint16_t component_def_count;    // NEW: Number of component definitions
+    uint16_t component_def_count;
     uint16_t animation_count;
+    uint16_t script_count;       // NEW: Number of script blocks
     uint16_t string_count;
     uint16_t resource_count;
     uint32_t element_offset;
     uint32_t style_offset;
-    uint32_t component_def_offset;   // NEW: Byte offset to component definitions
+    uint32_t component_def_offset;
     uint32_t animation_offset;
+    uint32_t script_offset;      // NEW: Byte offset to script table
     uint32_t string_offset;
     uint32_t resource_offset;
     uint32_t total_size;
 } KrbHeader;
 
-// Element Header (17 bytes) - Already includes custom_prop_count
+// Element Header (18 bytes) - Updated from v0.4 (17 bytes)
 typedef struct {
     uint8_t type;
     uint8_t id;              // 0-based string index
@@ -167,7 +191,8 @@ typedef struct {
     uint8_t child_count;
     uint8_t event_count;
     uint8_t animation_count;
-    uint8_t custom_prop_count; // Already present
+    uint8_t custom_prop_count;
+    uint8_t state_prop_count; // NEW: Number of state property sets
 } KrbElementHeader;
 
 // Event structure (as stored in file - 2 bytes)
@@ -187,7 +212,7 @@ typedef struct {
     void* value;
 } KrbProperty;
 
-// NEW: Custom Property structure
+// Custom Property structure
 typedef struct {
     uint8_t key_index;      // 0-based string table index for property key name
     uint8_t value_type;     // VAL_TYPE_* for the value
@@ -195,7 +220,31 @@ typedef struct {
     void* value;            // Property value data
 } KrbCustomProperty;
 
-// NEW: Property Definition structure (for component definitions)
+// NEW: State Property Set structure
+typedef struct {
+    uint8_t state_flags;    // Bit flags for applicable states
+    uint8_t property_count; // Number of properties in this state set
+    KrbProperty* properties; // Array of properties for this state
+} KrbStatePropertySet;
+
+// NEW: Script Function structure
+typedef struct {
+    uint8_t function_name_index; // String table index for function name
+} KrbScriptFunction;
+
+// NEW: Script Entry structure
+typedef struct {
+    uint8_t language_id;         // Script language identifier
+    uint8_t name_index;          // String table index for script name (0 if unnamed)
+    uint8_t storage_format;      // How script is stored (inline/external)
+    uint8_t entry_point_count;   // Number of exported functions
+    uint16_t data_size;          // Size if inline, resource index if external
+    KrbScriptFunction* entry_points; // Array of entry point functions
+    void* code_data;             // Script code (for inline scripts only)
+    uint8_t resource_index;      // Resource index (for external scripts only)
+} KrbScript;
+
+// Property Definition structure (for component definitions)
 typedef struct {
     uint8_t name_index;     // 0-based string table index for property name
     uint8_t value_type_hint; // VAL_TYPE_* indicating expected data type
@@ -203,7 +252,7 @@ typedef struct {
     void* default_value_data;   // Default value data (NULL if no default)
 } KrbPropertyDefinition;
 
-// NEW: Component Definition structure
+// Component Definition structure
 typedef struct {
     uint8_t name_index;         // 0-based string table index for component name
     uint8_t property_def_count; // Number of property definitions
@@ -212,6 +261,7 @@ typedef struct {
     KrbElementHeader root_template_header;
     KrbProperty* root_template_properties;    // Standard properties for root template
     KrbCustomProperty* root_template_custom_props; // Custom properties for root template (typically 0)
+    KrbStatePropertySet* root_template_state_props; // NEW: State properties for root template
     KrbEventFileEntry* root_template_events;  // Events for root template (typically 0)
     // Child references would follow, but for simplicity we'll handle this in parsing
 } KrbComponentDefinition;
@@ -243,10 +293,12 @@ typedef struct {
     // Arrays holding parsed data
     KrbElementHeader* elements;
     KrbProperty** properties;              // Standard properties per element
-    KrbCustomProperty** custom_properties; // NEW: Custom properties per element
+    KrbCustomProperty** custom_properties; // Custom properties per element
+    KrbStatePropertySet** state_properties; // NEW: State property sets per element
     KrbEventFileEntry** events;
     KrbStyle* styles;
-    KrbComponentDefinition* component_defs; // NEW: Component definitions
+    KrbComponentDefinition* component_defs;
+    KrbScript* scripts;                     // NEW: Script blocks
     char** strings;
     KrbResource* resources;
     // KrbAnimation* animations; // TODO
